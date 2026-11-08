@@ -30,15 +30,43 @@
 
 window.SKILL_INFO = {
   /* ---- Development & engines ---- */
-  'Java': { emoji: '☕', tagline: 'The language that almost made me cry, but I didn\'t', tags: ['Certiport certified'], level: 1, levelLabel: 'syntax-stuck limbo', details: 'past the basics, just the basics' },
-  'React': { emoji: '⚛️', tagline: 'Web dev', tags: ['School Projects'], level: 2, levelLabel: 'advanced beginner', details: 'past the basics, needs more practice' },
-  'Flutter': { emoji: '🦋', tagline: 'Web dev', tags: ['School Projects'], level: 1, levelLabel: 'syntax-stuck limbo', details: 'past the basics, just the basics' },
+  'Java': {
+    emoji: '☕',
+    tagline: 'The language that almost made me cry, but I didn\'t.',
+    level: 1,
+    levelLabel: 'we have a complicated relationship',
+    details: 'I know the basics. I can read it, and write simple programs. Beyond that? We are still negotiating.',
+  },
+
+  'React': {
+    emoji: '⚛️',
+    tagline: 'Making interfaces one component at a time.',
+    level: 2,
+    levelLabel: 'Learning & building',
+    details: 'Familiar with components, props, and basic React workflows. Have applied them in academic projects and am working on more independent implementations.',
+  },
+
+  'Flutter': {
+    emoji: '🦋',
+    tagline: 'Currently exploring this little ecosystem.',
+    level: 1,
+    levelLabel: 'Beginner',
+    details: 'Basic familiarity with Flutter, Dart, and building simple app interfaces. Still exploring its development workflow.',
+  },
+
   'HTML & CSS': { emoji: '🎨', tags: ['Certiport certified'], level: 3, levelLabel: 'competent', details: 'I can read and understand, confidently write and create basic design' },
   'Unity': { emoji: '🕹️', tags: ['Capstone Project'], level: 2, levelLabel: 'figuring it out', details: 'This toolbox is like Mount Everest, there\`s a giant learning curve. Uses C# (I mainly drop and design the assets and vibe-coded some features and functions as co-developer),' },
   'Git / GitHub': { emoji: '🐙', link: { label: 'My GitHub', href: 'https://github.com/ellaiza9017' } },
 
   /* ---- Database & backend ---- */
-  'MySQL': { emoji: '🐬', tags: ['School Activities', 'Projects'], level: 2, levelLabel: 'advanced beginner', details: 'rusty but I know the basics' },
+  'MySQL': {
+    emoji: '🐬',
+    tagline: 'We used to be closer.',
+    level: 2,
+    levelLabel: 'a little rusty',
+    details: 'Know the fundamentals of SQL, queries, and relational databases. Might need a little refresher, but the knowledge is somewhere in there.',
+  },
+
   'Oracle': { emoji: '🔮', tags: ['School Activities', 'Projects'], level: 2, levelLabel: 'advanced beginner', details: 'rusty but I know the basics' },
   'Supabase': { emoji: '⚡', tags: ['School Activities', 'Projects'], level: 3, levelLabel: 'competent' },
   'Firebase': { emoji: '🔥', tags: ['School Activities', 'Projects'], level: 3, levelLabel: 'competent' },
@@ -52,8 +80,8 @@ window.SKILL_INFO = {
   'Krita': { emoji: '✏️', tagline: 'Before Procreate was Krita, my first ex' },
   'Canva': { emoji: '🌈', tags: ['learning/exploring', 'designs/drafts', 'videos/presentations'], level: 3, levelLabel: 'intermediate', details: 'Started learning to make videos in Canva! It\'s pretty fun' },
   'CapCut': { emoji: '🎬', level: 3, levelLabel: 'intermediate', details: 'Started using CapCut recently to make videos! It\'s pretty fun' },
-  'UI/UX layouts': { emoji: '📐', tagline: 'My favorite part as an IT student. The only part that don\'t make me cry', level: 3, levelLabel: 'intermediate', details: 'Sadly I\'m still a baby chick with more worms to eat before I can fly' },
-  'AI tooling': { emoji: '🤖', tagline: 'My life saviors. I would have dropped if not for them.', details: 'No, I didn\'t get this far only because of them. It was tears, sleepless nights, existential dread, and the occasional "I quit" moments that got me this far.' }
+  'UI/UX layouts': { emoji: '📐', tagline: 'The part of IT I actually look forward to. The only part that don\'t make me cry', level: 3, levelLabel: 'getting there', details: 'Sadly I\'m still a baby chick with more worms to eat before I can fly' },
+  'AI tooling': { emoji: '🤖', tagline: 'My academic survival kit.', details: 'Used for debugging, brainstorming, understanding unfamiliar concepts, and getting unstuck. No, I didn\'t get this far only because of them. It was tears, sleepless nights, existential dread, and the occasional "I quit" moments that got me this far.' }
 };
 
 /* What a skill shows when you haven't filled in that field.
