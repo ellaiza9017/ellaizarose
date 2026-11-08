@@ -3,1905 +3,675 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#0a0613">
-  <title>✦ ELLAIZA ✦ Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14092e">
+  <title>Ellaiza Rose Pesons — Illustration, 3D & Interface</title>
   <meta name="description"
-    content="Portfolio of Ellaiza Rose B. Pesons - 4th-year BSIT Student, 3D Low-Poly Modeler, and Multimedia Asset Designer open for OJT Internship and Commissions.">
+    content="Portfolio of Ellaiza Rose B. Pesons, a 4th-year BSIT student (web and mobile development) and illustrator. Capstone: Luminang. Open for OJT internship.">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fleur+De+Leah&family=Ballet:opsz@16..72&family=Cinzel:wght@400;600;700;900&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Caveat:wght@500;600;700&display=swap"
-    rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Caveat:wght@600&display=swap">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css">
+
+  <!-- Scripts: Matter.js powers the falling skills pit; main.js runs everything else -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js" defer></script>
+  <script src="skills-info.js" defer></script>
+  <script src="main.js" defer></script>
 </head>
 
-<body data-theme="dark">
+<body>
 
-  <!-- Interactive Stardust & Dust Sparks Canvas -->
-  <canvas id="stardust-canvas" aria-hidden="true"></canvas>
-
-  <!-- Star Cursor Element (Custom interactive celestial follower) -->
-  <div class="star-cursor" id="star-cursor" aria-hidden="true">
-    <svg viewBox="0 0 24 24" class="cursor-svg">
-      <!-- 4-point glowing star with radiant core -->
-      <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="url(#starGrad)" />
-      <defs>
-        <linearGradient id="starGrad" x1="0" y1="0" x2="24" y2="24">
-          <stop offset="0%" stop-color="#FFFFFF" />
-          <stop offset="50%" stop-color="#D4B8FF" />
-          <stop offset="100%" stop-color="#9B6CFA" />
-        </linearGradient>
-      </defs>
-    </svg>
-    <div class="cursor-trail-tail"></div>
-  </div>
-
-  <!-- Ambient Cursor Glow Follower -->
-  <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
-
-  <!-- MULTI-PLANE PARALLAX GALAXY UNIVERSE -->
-  <div class="parallax-backdrop" aria-hidden="true">
-    <!-- Plane 0: Deep Space Galaxy Dust Clouds -->
-    <div class="p-layer p-nebula" data-speed="0.08">
-      <div class="nebula-orb orb-1"></div>
-      <div class="nebula-orb orb-2"></div>
-      <div class="nebula-orb orb-3"></div>
-      <div class="galaxy-milky-dust dust-1"></div>
-      <div class="galaxy-milky-dust dust-2"></div>
-    </div>
-
-    <!-- Plane 1: Twinkling Micro-Stars -->
-    <div class="p-layer p-stars-deep" data-speed="0.18" id="stars-container"></div>
-
-    <!-- Plane 2: Celestial Orbital Rings & Geometry -->
-    <div class="p-layer p-geometry" data-speed="0.32">
-      <div class="celestial-orbit orbit-large"></div>
-      <div class="celestial-orbit orbit-medium"></div>
-    </div>
-
-    <!-- Plane 3: Floating Four-Point Star Dust Elements -->
-    <div class="p-layer p-sparkles" data-speed="0.55">
-      <span class="float-star s1" style="top: 15%; left: 8%;">✦</span>
-      <span class="float-star s2" style="top: 35%; right: 12%;">✧</span>
-      <span class="float-star s3" style="top: 60%; left: 14%;">✦</span>
-      <span class="float-star s4" style="top: 75%; right: 9%;">✧</span>
-      <span class="float-star s5" style="top: 25%; left: 80%;">✦</span>
-      <span class="float-star s6" style="top: 48%; left: 5%;">✧</span>
-      <span class="float-star s7" style="top: 72%; left: 45%;">✦</span>
-      <span class="float-star s8" style="top: 88%; right: 40%;">✧</span>
-    </div>
-  </div>
-
-  <!-- MINIMALIST NAVIGATION HEADER (Screenshot 2 Match) -->
-  <!-- Shared SVG Definitions for Nav Star Indicator -->
-  <svg width="0" height="0" style="position: absolute; pointer-events: none;" aria-hidden="true">
-    <defs>
-      <linearGradient id="starGradNav" x1="0" y1="0" x2="24" y2="24">
-        <stop offset="0%" stop-color="#FFFFFF" />
-        <stop offset="40%" stop-color="#EADCFE" />
-        <stop offset="80%" stop-color="#D4B8FF" />
-        <stop offset="100%" stop-color="#9B6CFA" />
-      </linearGradient>
-    </defs>
+  <!-- Reusable SVG icons (referenced elsewhere with <use href="#id">) -->
+  <svg class="sprite" width="0" height="0" aria-hidden="true">
+    <symbol id="st" viewBox="0 0 24 24">
+      <path d="M12 0l2.5 9.5L24 12l-9.5 2.5L12 24l-2.5-9.5L0 12l9.5-2.5z" fill="currentColor" />
+    </symbol>
+    <symbol id="ic-cat" viewBox="0 0 40 40">
+      <path d="M7 35V12l8 6h10l8-6v23z" fill="currentColor" stroke="currentColor" stroke-width="4"
+        stroke-linejoin="round" />
+      <circle cx="15" cy="26" r="2.6" fill="#f4efff" />
+      <circle cx="25" cy="26" r="2.6" fill="#f4efff" />
+      <path d="M18.5 30h3l-1.5 2z" fill="#ff6b8b" />
+    </symbol>
+    <symbol id="ic-cup" viewBox="0 0 40 40">
+      <path d="M7 14h22v10a10 10 0 0 1-10 10h-2A10 10 0 0 1 7 24z" fill="currentColor" />
+      <path d="M29 17h2.5a4.5 4.5 0 0 1 0 9H28" fill="none" stroke="currentColor" stroke-width="3" />
+      <path d="M13 9c-2-3 2-4 0-7M19 9c-2-3 2-4 0-7M25 9c-2-3 2-4 0-7" fill="none" stroke="currentColor"
+        stroke-width="2.4" stroke-linecap="round" />
+    </symbol>
   </svg>
-  <header class="site-header">
-    <div class="header-inner">
-      <a href="javascript:void(0)" class="brand-crest" id="btn-view-logo" title="Click to toggle lo-fi soundtrack">
-        <img src="assets/images/ellaiza-logo.png" alt="Ellaiza Logo" class="brand-crest-img vinyl-paused"
-          id="vinyl-disc">
-        <div class="brand-info">
-          <span class="brand-name">ELLAIZA</span>
-          <div class="brand-music-badge" id="music-badge">
-            <span class="music-wave"></span>
-            <span id="music-text">Tap to play</span>
-          </div>
-        </div>
-      </a>
-      <audio id="bg-audio" preload="auto"></audio>
 
-      <nav class="nav-links">
-        <a href="#home" class="nav-item active" data-nav="home">
-          <span class="nav-active-star" aria-hidden="true">
-            <svg viewBox="0 0 24 24" class="nav-star-spin-svg">
-              <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="url(#starGradNav)" />
-            </svg>
-          </span>
-          <span class="nav-text">Home</span>
-        </a>
-        <a href="#about" class="nav-item" data-nav="about">
-          <span class="nav-active-star" aria-hidden="true">
-            <svg viewBox="0 0 24 24" class="nav-star-spin-svg">
-              <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="url(#starGradNav)" />
-            </svg>
-          </span>
-          <span class="nav-text">About Me</span>
-        </a>
-        <a href="#skills" class="nav-item" data-nav="skills">
-          <span class="nav-active-star" aria-hidden="true">
-            <svg viewBox="0 0 24 24" class="nav-star-spin-svg">
-              <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="url(#starGradNav)" />
-            </svg>
-          </span>
-          <span class="nav-text">Skills</span>
-        </a>
-        <a href="#works" class="nav-item" data-nav="works">
-          <span class="nav-active-star" aria-hidden="true">
-            <svg viewBox="0 0 24 24" class="nav-star-spin-svg">
-              <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="url(#starGradNav)" />
-            </svg>
-          </span>
-          <span class="nav-text">Works</span>
-        </a>
-        <a href="#contact" class="nav-item" data-nav="contact">
-          <span class="nav-active-star" aria-hidden="true">
-            <svg viewBox="0 0 24 24" class="nav-star-spin-svg">
-              <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="url(#starGradNav)" />
-            </svg>
-          </span>
-          <span class="nav-text">Contact</span>
-        </a>
-        <a href="#" class="nav-item nav-item--disabled" data-coming-soon aria-label="Gallery - Coming Soon">
-          <span class="nav-active-star" aria-hidden="true">
-            <svg viewBox="0 0 24 24" class="nav-star-spin-svg">
-              <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="url(#starGradNav)" />
-            </svg>
-          </span>
-          <span class="nav-text">Gallery</span>
-        </a>
-      </nav>
 
-      <!-- Mobile Hamburger Toggle Button -->
-      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu">
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-        <span class="hamburger-bar"></span>
-      </button>
+  <!-- ==========================================================================
+       Navigation
+       ========================================================================== -->
+  <nav id="nav" aria-label="Sections">
+    <a class="nav-brand" href="#top">Ellaiza</a>
+    <button type="button" class="nav-toggle" id="navtog" aria-expanded="false" aria-controls="navlinks"
+      aria-label="Open menu">
+      <span class="bars" aria-hidden="true"></span>
+    </button>
+    <div class="nl" id="navlinks">
+      <a href="#top">Home</a>
+      <a href="#about">About</a>
+      <a href="#works">Works</a>
+      <a href="#hobby">Hobby</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
     </div>
+  </nav>
 
-    <!-- Mobile Drawer Menu Overlay -->
-    <div class="mobile-nav-drawer" id="mobile-nav-drawer">
-      <div class="mobile-nav-inner">
-        <a href="#home" class="mobile-nav-item" data-nav="home"><span>Home</span></a>
-        <a href="#about" class="mobile-nav-item" data-nav="about"><span>About Me</span></a>
-        <a href="#skills" class="mobile-nav-item" data-nav="skills"><span>Skills</span></a>
-        <a href="#works" class="mobile-nav-item" data-nav="works"><span>Works</span></a>
-        <a href="#contact" class="mobile-nav-item" data-nav="contact"><span>Contact</span></a>
-        <a href="gallery.html" class="mobile-nav-item"><span>Gallery</span></a>
-        <p class="mobile-nav-note">&#10022; Available for OJT Internship &bull; Active for Commissions</p>
+
+  <!-- ==========================================================================
+       Hero
+       ========================================================================== -->
+  <header class="hero" id="top">
+    <!-- Floating shapes (parallax with the cursor) -->
+    <div class="sh s1">
+      <svg width="70" height="70">
+        <use href="#st" />
+      </svg>
+    </div>
+    <div class="sh s2">
+      <svg width="46" height="46">
+        <use href="#st" />
+      </svg>
+    </div>
+    <div class="sh s3"><i></i></div>
+    <div class="sh s4"><i></i></div>
+    <div class="sh s5"><span class="deco" data-k="cup"></span></div>
+
+    <!-- Cat on a crescent moon; the eyes follow the cursor -->
+    <svg id="cat" viewBox="0 0 200 230" role="img"
+      aria-label="A black cat sitting on a crescent moon, eyes following your cursor">
+      <circle cx="100" cy="160" r="68" fill="#c8f560" />
+      <circle cx="130" cy="142" r="58" fill="#6c3cff" />
+      <path d="M150 150c40-10 40-70 10-70" fill="none" stroke="#14092e" stroke-width="12" stroke-linecap="round" />
+      <ellipse cx="92" cy="140" rx="40" ry="46" fill="#14092e" />
+      <path d="M56 70l6-34 26 18zM128 70l-6-34-26 18z" fill="#14092e" />
+      <circle cx="92" cy="86" r="38" fill="#14092e" />
+      <circle cx="78" cy="84" r="11" fill="#f4efff" />
+      <circle cx="106" cy="84" r="11" fill="#f4efff" />
+      <circle class="pu" cx="78" cy="84" r="6" fill="#6c3cff" />
+      <circle class="pu" cx="106" cy="84" r="6" fill="#6c3cff" />
+      <path d="M87 98h10l-5 6z" fill="#ff6b8b" />
+      <path d="M60 98l-24-4M60 104l-24 6M124 98l24-4M124 104l24 6" stroke="#f4efff" stroke-width="2"
+        stroke-linecap="round" />
+    </svg>
+
+    <div class="w hero-t">
+      <p class="hero-d">
+        I live life full of daydreams, cats, coffee, and music. Creativity may not like me very much but I sure like
+        to chase it.
+      </p>
+      <p class="typed" aria-live="off">
+        <span id="typing-text"></span><span class="typing-cursor" aria-hidden="true">|</span>
+      </p>
+      <span class="note hov-only">psst, move your mouse ↴</span>
+      <div class="cta">
+        <a class="b" href="#works">View works</a>
+        <a class="b sun" href="#contact">Say hi</a>
       </div>
     </div>
+
+    <h1 id="nm" class="w" aria-label="Hi! I’m Ellaiza" data-t="Hi! I’m Ellaiza"></h1>
   </header>
 
-  <!-- Left Side Nav Indicator (Enlarged with Spinning Cursor Star) -->
-  <div class="section-nav-indicator" aria-hidden="true">
-    <div class="nav-line"></div>
-    <div class="nav-ind-dot active" title="Home" data-section="home">
-      <span class="dot-base-star">✦</span>
-      <span class="dot-active-cursor">
-        <svg viewBox="0 0 24 24" class="side-nav-star-svg">
-          <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="url(#starGradNav)" />
-        </svg>
-      </span>
+  <!-- Scrolling keyword strip (filled in by main.js) -->
+  <div class="mqw" aria-hidden="true">
+    <div class="mq">
+      <div id="mq"></div>
     </div>
-    <div class="nav-line"></div>
-    <div class="nav-ind-dot" title="About" data-section="about">
-      <span class="dot-base-star">✦</span>
-      <span class="dot-active-cursor">
-        <svg viewBox="0 0 24 24" class="side-nav-star-svg">
-          <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="url(#starGradNav)" />
-        </svg>
-      </span>
-    </div>
-    <div class="nav-line"></div>
-    <div class="nav-ind-dot" title="Skills" data-section="skills">
-      <span class="dot-base-star">✦</span>
-      <span class="dot-active-cursor">
-        <svg viewBox="0 0 24 24" class="side-nav-star-svg">
-          <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="url(#starGradNav)" />
-        </svg>
-      </span>
-    </div>
-    <div class="nav-line"></div>
-    <div class="nav-ind-dot" title="Works" data-section="works">
-      <span class="dot-base-star">✦</span>
-      <span class="dot-active-cursor">
-        <svg viewBox="0 0 24 24" class="side-nav-star-svg">
-          <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="url(#starGradNav)" />
-        </svg>
-      </span>
-    </div>
-    <div class="nav-line"></div>
-    <div class="nav-ind-dot" title="Contact" data-section="contact">
-      <span class="dot-base-star">✦</span>
-      <span class="dot-active-cursor">
-        <svg viewBox="0 0 24 24" class="side-nav-star-svg">
-          <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="url(#starGradNav)" />
-        </svg>
-      </span>
-    </div>
-    <div class="nav-line"></div>
   </div>
 
-  <!-- MAIN VIEWPORT CONTAINER -->
-  <main class="page-viewport">
 
-    <!-- ========================================================
-         HERO SECTION: NEW REDESIGN
-         ======================================================== -->
-    <section id="home" class="section hero-section">
-      <!-- Eye Crop Banner & Full Name Bar (Screenshot 2 Match) -->
-      <div class="eyecrop-wrapper">
-        <div class="eyecrop-banner" data-reveal-right>
-          <div class="eyecrop-stage" id="eyecrop-stage">
-            <div class="eyecrop-parallax" id="eyecrop-parallax">
-              <img src="assets/images/Illustrations/eyesCrop.png" alt="Eyes crop illustration" class="eyecrop-img">
-            </div>
-            <div class="eyecrop-eyeglow eyecrop-eyeglow--l" aria-hidden="true"></div>
-            <div class="eyecrop-eyeglow eyecrop-eyeglow--r" aria-hidden="true"></div>
-            <canvas class="eyecrop-particles" id="eyecrop-particles" aria-hidden="true"></canvas>
-            <div class="eyecrop-grade" aria-hidden="true"></div>
-            <div class="eyecrop-sweep" aria-hidden="true"></div>
-            <div class="eyecrop-vignette" aria-hidden="true"></div>
-            <div class="eyecrop-grain" aria-hidden="true"></div>
-          </div>
-        </div>
-        <!-- Full Name Bar pinned along the bottom edge of the eyecrop -->
-        <div class="hero-name-bar" data-name-reveal>
-          <img src="assets/SVG/star-sparkle.png" alt="" class="hero-name-sparkle-img" aria-hidden="true">
-          <h1 class="hero-fullname">Ellaiza Rose Pesons</h1>
-          <img src="assets/SVG/star-sparkle.png" alt="" class="hero-name-sparkle-img" aria-hidden="true">
+  <!-- ==========================================================================
+       About
+       ========================================================================== -->
+  <section class="about" id="about">
+    <span class="deco deco-about-cup bobby" data-k="cup"></span>
+
+    <div class="w">
+      <p class="big">
+        Somewhere between doodles, digital worlds, and unfinished ideas. I like making things that tell stories,
+        spark curiosity, and make the ordinary a little more interesting.
+      </p>
+
+      <!-- Draggable stickers (filled in by main.js) -->
+      <div class="boardwrap">
+        <span class="deco deco-about-peek peek pet" data-k="peek"></span>
+        <div class="board" id="board">
+          <span class="note">toss them around</span>
         </div>
       </div>
 
-      <!-- Hero Content Grid -->
-      <div class="hero-container" data-reveal>
-        <!-- Left: Text -->
-        <div class="hero-narrative">
-          <p class="hero-greeting">Hi, I'm Ellaiza</p>
-          <p class="hero-description">I live life full of daydreams, cats, coffee, and music. Creativity may not like me
-            very much but I sure like to chase it.</p>
-          <p class="hero-typing-line"><span id="typing-text"></span><span class="typing-cursor">|</span></p>
-          <div class="hero-actions">
-            <a href="#works" class="hero-pill pill-cta">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
-              view works
-            </a>
-            <span class="hero-pill pill-static">BSIT 4th year</span>
-            <span class="hero-pill pill-static">illustrations</span>
-          </div>
-        </div>
-
-        <!-- Right: Music Player Card (Matches Draft: Sharp Edge, Liquid Glass, Full-Span Art, Visualizer Ticks, No Text) -->
-        <div class="live2d-stage-wrapper" data-reveal>
-          <div class="live2d-card auto-hover-float" id="live2d-card">
-            <!-- Sparkles at top right corner as drawn in draft -->
-            <div class="player-draft-sparkles" aria-hidden="true">
-              <img src="assets/SVG/star-sparkle.png" class="p-sparkle-lg" alt="">
-              <img src="assets/SVG/star-sparkle.png" class="p-sparkle-sm" alt="">
-            </div>
-            <div class="live2d-aura"></div>
-            <!-- Character Viewport (Spans the entire card background) -->
-            <div class="live2d-viewport">
-              <img src="assets/images/Illustrations/PurpleGirl.png" alt="Purple Girl Illustration"
-                class="live2d-character-image" id="live2d-img">
-              <div class="live2d-shimmer-pass"></div>
-              <div class="card-dust cd-1">✦</div>
-              <div class="card-dust cd-2">✧</div>
-              <div class="card-dust cd-3">✦</div>
-            </div>
-            <!-- Music Player Overlay: Wavelength + Bottom Control Shelf -->
-            <div class="live2d-footer music-player-plate">
-              <!-- Wavelength Visualizer: Exact draft rhythm | · · · | · · · | · · · | · · · | · · · | -->
-              <div class="player-waveform" id="card-sound-wave" aria-label="Audio Visualizer">
-                <span class="wbar wbar-tall" style="--i: 0;"></span>
-                <span class="wbar wbar-dot" style="--i: 1;"></span>
-                <span class="wbar wbar-dot" style="--i: 2;"></span>
-                <span class="wbar wbar-dot" style="--i: 3;"></span>
-                <span class="wbar wbar-tall" style="--i: 4;"></span>
-                <span class="wbar wbar-dot" style="--i: 5;"></span>
-                <span class="wbar wbar-dot" style="--i: 6;"></span>
-                <span class="wbar wbar-dot" style="--i: 7;"></span>
-                <span class="wbar wbar-tall" style="--i: 8;"></span>
-                <span class="wbar wbar-dot" style="--i: 9;"></span>
-                <span class="wbar wbar-dot" style="--i: 10;"></span>
-                <span class="wbar wbar-dot" style="--i: 11;"></span>
-                <span class="wbar wbar-tall" style="--i: 12;"></span>
-                <span class="wbar wbar-dot" style="--i: 13;"></span>
-                <span class="wbar wbar-dot" style="--i: 14;"></span>
-                <span class="wbar wbar-dot" style="--i: 15;"></span>
-                <span class="wbar wbar-tall" style="--i: 16;"></span>
-                <span class="wbar wbar-dot" style="--i: 17;"></span>
-                <span class="wbar wbar-dot" style="--i: 18;"></span>
-                <span class="wbar wbar-dot" style="--i: 19;"></span>
-                <span class="wbar wbar-tall" style="--i: 20;"></span>
-                <span class="wbar wbar-dot" style="--i: 21;"></span>
-                <span class="wbar wbar-dot" style="--i: 22;"></span>
-                <span class="wbar wbar-dot" style="--i: 23;"></span>
-                <span class="wbar wbar-tall" style="--i: 24;"></span>
-                <span class="wbar wbar-dot" style="--i: 25;"></span>
-                <span class="wbar wbar-dot" style="--i: 26;"></span>
-                <span class="wbar wbar-dot" style="--i: 27;"></span>
-                <span class="wbar wbar-tall" style="--i: 28;"></span>
-                <span class="wbar wbar-dot" style="--i: 29;"></span>
-                <span class="wbar wbar-dot" style="--i: 30;"></span>
-                <span class="wbar wbar-dot" style="--i: 31;"></span>
-                <span class="wbar wbar-tall" style="--i: 32;"></span>
-                <span class="wbar wbar-dot" style="--i: 33;"></span>
-                <span class="wbar wbar-dot" style="--i: 34;"></span>
-                <span class="wbar wbar-dot" style="--i: 35;"></span>
-                <span class="wbar wbar-tall" style="--i: 36;"></span>
-                <span class="wbar wbar-dot" style="--i: 37;"></span>
-                <span class="wbar wbar-dot" style="--i: 38;"></span>
-                <span class="wbar wbar-dot" style="--i: 39;"></span>
-                <span class="wbar wbar-tall" style="--i: 40;"></span>
-                <span class="wbar wbar-dot" style="--i: 41;"></span>
-                <span class="wbar wbar-dot" style="--i: 42;"></span>
-                <span class="wbar wbar-dot" style="--i: 43;"></span>
-                <span class="wbar wbar-tall" style="--i: 44;"></span>
-              </div>
-              <!-- Bottom Controls Shelf: ◁◁  (||)  ▷▷ -->
-              <div class="player-controls">
-                <button class="player-nav-btn" id="player-prev-btn" aria-label="Previous Track">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                    <path d="M11 18V6l-8.5 6 8.5 6zm10 0V6l-8.5 6 8.5 6z" />
-                  </svg>
-                </button>
-                <button class="player-play-btn" id="card-play-btn" aria-label="Toggle Music">
-                  <svg class="play-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                    <path d="M8 5v14l11-7z" id="card-play-path" />
-                  </svg>
-                </button>
-                <button class="player-nav-btn" id="player-next-btn" aria-label="Next Track">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                    <path d="M4 6v12l8.5-6L4 6zm10 0v12l8.5-6L14 6z" />
-                  </svg>
-                </button>
-              </div>
-              <!-- Text metadata hidden strictly to match draft -->
-              <div class="footer-meta" id="player-info-meta" style="display: none !important;">
-                <span class="name" id="player-track-name">Good Night • Cozy Lo-Fi</span>
-                <span class="sub" id="player-track-sub">FASSounds</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="walkway walkway-about" aria-hidden="true">
+        <span class="walker pet"></span>
       </div>
 
-      <!-- Scroll Down Indicator -->
-      <a href="#about" class="scroll-down-pill" id="scroll-indicator" aria-label="Scroll down">
-        <span class="pill-text">SCROLL DOWN</span>
-        <svg class="scroll-arrow-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M12 5v14M12 19l-5-5M12 19l5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-            stroke-linejoin="round" />
-        </svg>
-      </a>
-    </section>
+      <p class="sum">
+        I’m a 4th-year BSIT student at National University – Dasmariñas with hands-on experience in general
+        programming, web and mobile development, and database systems. Through our capstone project I worked with an
+        AI-assisted workflow on low-poly 3D modeling in Blender, Unity development and mobile UI layouts. I’m an
+        adaptable, diligent and proactive team player looking to apply core IT skills, learn from industry mentors and
+        contribute to team workflows during an On-the-Job Training (OJT) internship.
+      </p>
 
-    <!-- ========================================================
-         ABOUT ME SECTION (Refined, Clean & Symmetrical)
-         ======================================================== -->
-    <section id="about" class="section about-section">
-      <div class="section-container">
-
-        <div class="section-header about-header" data-reveal>
-          <div class="about-eyebrow">
-            <span class="sparkle eyebrow-stars">✦ ✦</span>
-            <span class="eyebrow-line"></span>
-            <span>ABOUT ME</span>
-            <span class="eyebrow-line"></span>
-            <span class="sparkle eyebrow-stars">✦ ✦</span>
-          </div>
-          <h2 class="section-title">WHO I AM</h2>
+      <div class="ed">
+        <div>
+          <small>College · 2023 – current</small>
+          <h3>Bachelor of Science in Information Technology</h3>
+          <p>Major in Web and Mobile Development</p>
+          <p>National University – Dasmariñas</p>
         </div>
-
-        <div class="about-grid sketch-about-grid">
-          <!-- Left: Background with Canva Arch Frame (NO visible container box) -->
-          <div class="about-left-col" data-reveal-left>
-            <div class="about-sketch-arch-wrap">
-              <img src="assets/SVG/backgroundFrame.svg" alt="" class="about-sketch-arch-svg" aria-hidden="true">
-              <div class="arch-slices" aria-hidden="true"><span class="arch-top"></span><span
-                  class="arch-mid"></span><span class="arch-bot"></span></div>
-              <div class="about-sketch-arch-inner">
-                <h3 class="card-heading garamond-heading">BACKGROUND</h3>
-                <div class="about-paragraphs-wrap">
-                  <p class="body-text">
-                    I am a <strong>4th-year Bachelor of Science in Information Technology (BSIT)</strong> student at
-                    <strong>National University – Dasmariñas</strong> with foundational experience in general
-                    programming,
-                    web and mobile development, and database systems built through hands-on academic coursework and
-                    school
-                    projects.
-                  </p>
-                  <p class="body-text">
-                    Through our capstone project, I gained proven hands-on experience and AI assisted workflow in
-                    <strong>low-poly 3D modeling in Blender</strong>, <strong>Unity development</strong>, and mobile UI
-                    layouts.
-                    I consider myself an adaptable, diligent, and proactive team player eager to apply core IT skills,
-                    learn
-                    from industry mentors, and contribute to team workflows during an <strong>On-the-Job Training (OJT)
-                      internship</strong>
-                    and creative projects.
-                  </p>
-
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-
-          <!-- Right: Education (NO visible container box, clean lines matching sketch) -->
-          <div class="education-sketch-col">
-            <div class="edu-items-wrap">
-              <div class="edu-cards-group" data-reveal-right>
-                <!-- College -->
-                <div class="sketch-edu-item">
-                  <div class="edu-sketch-line-header">
-                    <span class="edu-sketch-bracket">— COLLEGE &bull; 4TH-YEAR —</span>
-                    <span class="edu-sketch-rule"></span>
-                  </div>
-                  <h4 class="edu-title">Bachelor of Science in Information Technology (BSIT)</h4>
-                  <p class="edu-major">Major in Web and Mobile Development</p>
-                  <p class="edu-school">National University – Dasmariñas</p>
-                  <span class="edu-date">2023 &ndash; CURRENT</span>
-                </div>
-
-                <!-- Senior High School -->
-                <div class="sketch-edu-item">
-                  <div class="edu-sketch-line-header">
-                    <span class="edu-sketch-bracket">— SENIOR-HIGH-SCHOOL —</span>
-                    <span class="edu-sketch-rule"></span>
-                  </div>
-                  <h4 class="edu-title">Accountancy, Business, and Management (ABM)</h4>
-                  <p class="edu-school">Philippine Christian University – Dasmariñas</p>
-                  <span class="edu-date">2021 &ndash; 2023</span>
-                </div>
-              </div>
-
-              <!-- Signature Color Palette: in line with letter 'O' of EDUCATION, fades in color by color -->
-              <div class="palette-bar-edu" data-reveal>
-                <div class="palette-swatches">
-                  <button class="swatch palette-swatch-reveal" data-hex="#0A0813" style="--c: #0A0813;"
-                    title="Abyssal Deep: #0A0813"></button>
-                  <button class="swatch palette-swatch-reveal" data-hex="#181329" style="--c: #181329;"
-                    title="Obsidian Night: #181329"></button>
-                  <button class="swatch palette-swatch-reveal" data-hex="#3D2968" style="--c: #3D2968;"
-                    title="Nebula Indigo: #3D2968"></button>
-                  <button class="swatch palette-swatch-reveal" data-hex="#8E63DB" style="--c: #8E63DB;"
-                    title="Starlight Violet: #8E63DB"></button>
-                  <button class="swatch palette-swatch-reveal" data-hex="#D4B8FF" style="--c: #D4B8FF;"
-                    title="Ethereal Lavender: #D4B8FF"></button>
-                  <button class="swatch palette-swatch-reveal" data-hex="#F4EFFF" style="--c: #F4EFFF;"
-                    title="Pure Stardust: #F4EFFF"></button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Vertical EDUCATION Spine Column (as in sketch) -->
-            <div class="edu-vertical-spine garamond-heading-spine" data-reveal-right aria-hidden="true">
-              <span>E</span>
-              <span>D</span>
-              <span>U</span>
-              <span>C</span>
-              <span>A</span>
-              <span>T</span>
-              <span>I</span>
-              <span>O</span>
-              <span>N</span>
-            </div>
-          </div>
+        <div>
+          <small>Senior high school · 2021 – 2023</small>
+          <h3>Accountancy, Business, and Management (ABM)</h3>
+          <p>Philippine Christian University – Dasmariñas</p>
         </div>
-
-
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ========================================================
-         SKILLS & CERTIFICATIONS SECTION
-         ======================================================== -->
-    <section id="skills" class="section skills-section">
-      <div class="section-container">
 
-        <div class="section-header skills-header" data-reveal>
-          <h2 class="section-title skills-title-scanner">
-            <span class="fx-scanner-wrap">
-              <span class="fx-scanner-base">TECHNICAL SKILLS &amp; TOOLS</span>
-              <span class="fx-scanner-window" aria-hidden="true">
-                <span class="fx-scanner-lit">TECHNICAL SKILLS &amp; TOOLS</span>
-              </span>
-              <span class="fx-scanner-line" aria-hidden="true"></span>
-            </span>
-          </h2>
-          <p class="section-subtitle">A list of all skills and programming languages, engines, frameworks, database
-            management, and creative tools I have interacted with.</p>
+  <!-- ==========================================================================
+       Works
+       ========================================================================== -->
+  <div class="sc sc-about" aria-hidden="true"></div>
+  <section class="works" id="works">
+    <div class="w">
+      <div class="hd">
+        <div class="hd-title">
+          <h2>Things I<br>made</h2>
+          <span class="deco cupw bobby" data-k="cup"></span>
         </div>
-
-        <div class="skills-showcase">
-
-          <!-- Card 1: Development & Engines -->
-          <div class="skill-group skill-holo-card" data-box-open data-skill-group="dev">
-            <div class="holo-border-frame" aria-hidden="true">
-              <svg style="overflow:visible" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" viewBox="0 0 864 1253.250002"
-                preserveAspectRatio="none" version="1.0">
-                <defs>
-                  <linearGradient id="p1_holoGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="864" y2="1253.25">
-                    <animateTransform attributeName="gradientTransform" type="rotate" from="0 432 626.6"
-                      to="360 432 626.6" dur="6s" begin="0s" repeatCount="indefinite" />
-                    <stop offset="0%" stop-color="#3D2968" />
-                    <stop offset="20%" stop-color="#8E63DB" />
-                    <stop offset="38%" stop-color="#D4B8FF" />
-                    <stop offset="50%" stop-color="#FFFFFF" />
-                    <stop offset="62%" stop-color="#D4B8FF" />
-                    <stop offset="80%" stop-color="#8E63DB" />
-                    <stop offset="100%" stop-color="#3D2968" />
-                  </linearGradient>
-                  <linearGradient id="p1_starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <animateTransform attributeName="gradientTransform" type="rotate" from="0 0.5 0.5" to="360 0.5 0.5"
-                      dur="4s" begin="0s" repeatCount="indefinite" />
-                    <stop offset="0%" stop-color="#8E63DB" />
-                    <stop offset="25%" stop-color="#D4B8FF" />
-                    <stop offset="50%" stop-color="#FFFFFF" />
-                    <stop offset="75%" stop-color="#EADCFE" />
-                    <stop offset="100%" stop-color="#8E63DB" />
-                  </linearGradient>
-                  <filter id="p1_starGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                  <clipPath id="p1_de069d3324">
-                    <path d="M 370 2 L 493 2 L 493 177 L 370 177 Z M 370 2 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_bfe05a66dc">
-                    <path
-                      d="M 370.214844 2.503906 L 493.152344 2.757812 L 492.796875 177.164062 L 369.859375 176.914062 Z M 370.214844 2.503906 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_0c113c179d">
-                    <path
-                      d="M 431.839844 3.078125 L 435.765625 80.851562 C 435.851562 82.546875 437.160156 83.925781 438.847656 84.105469 L 492.539062 89.78125 C 492.695312 89.800781 492.8125 89.929688 492.8125 90.085938 C 492.8125 90.246094 492.695312 90.375 492.539062 90.390625 L 438.824219 95.847656 C 437.136719 96.019531 435.824219 97.398438 435.730469 99.09375 L 431.484375 176.847656 C 431.476562 176.929688 431.410156 176.992188 431.328125 176.992188 C 431.246094 176.992188 431.175781 176.929688 431.171875 176.847656 L 427.242188 99.074219 C 427.160156 97.378906 425.851562 95.996094 424.164062 95.820312 L 370.472656 90.140625 C 370.316406 90.125 370.199219 89.992188 370.199219 89.835938 C 370.199219 89.679688 370.316406 89.550781 370.472656 89.535156 L 424.1875 84.074219 C 425.875 83.902344 427.1875 82.527344 427.28125 80.832031 L 431.527344 3.078125 C 431.53125 2.996094 431.601562 2.929688 431.683594 2.929688 C 431.765625 2.929688 431.832031 2.996094 431.839844 3.078125 Z M 431.839844 3.078125 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_b6dbd5b52a">
-                    <path
-                      d="M 0.117188 0.878906 L 122.921875 0.878906 L 122.921875 175 L 0.117188 175 Z M 0.117188 0.878906 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_be0f7595d1">
-                    <path
-                      d="M 0.214844 0.503906 L 123.152344 0.757812 L 122.796875 175.164062 L -0.140625 174.914062 Z M 0.214844 0.503906 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_6e1dc4df75">
-                    <path
-                      d="M 61.839844 1.078125 L 65.765625 78.851562 C 65.851562 80.546875 67.160156 81.925781 68.847656 82.105469 L 122.539062 87.78125 C 122.695312 87.800781 122.8125 87.929688 122.8125 88.085938 C 122.8125 88.246094 122.695312 88.375 122.539062 88.390625 L 68.824219 93.847656 C 67.136719 94.019531 65.824219 95.398438 65.730469 97.09375 L 61.484375 174.847656 C 61.476562 174.929688 61.410156 174.992188 61.328125 174.992188 C 61.246094 174.992188 61.175781 174.929688 61.171875 174.847656 L 57.242188 97.074219 C 57.160156 95.378906 55.851562 93.996094 54.164062 93.820312 L 0.472656 88.140625 C 0.316406 88.125 0.199219 87.992188 0.199219 87.835938 C 0.199219 87.679688 0.316406 87.550781 0.472656 87.535156 L 54.1875 82.074219 C 55.875 81.902344 57.1875 80.527344 57.28125 78.832031 L 61.527344 1.078125 C 61.53125 0.996094 61.601562 0.929688 61.683594 0.929688 C 61.765625 0.929688 61.832031 0.996094 61.839844 1.078125 Z M 61.839844 1.078125 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_d693a03f15">
-                    <rect x="0" width="123" y="0" height="175" />
-                  </clipPath>
-                  <clipPath id="p1_5239dc7027">
-                    <path d="M 404 60 L 459 60 L 459 120 L 404 120 Z M 404 60 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_4689bb88e4">
-                    <path
-                      d="M 378.710938 95.902344 L 431.386719 36.4375 L 484.996094 83.929688 L 432.320312 143.394531 Z M 378.710938 95.902344 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_f7060829b1">
-                    <path
-                      d="M 405.375 66.152344 L 429.441406 84.214844 C 430.796875 85.230469 432.691406 85.101562 433.898438 83.910156 L 457.875 60.242188 C 457.949219 60.167969 458.070312 60.164062 458.144531 60.234375 C 458.222656 60.304688 458.234375 60.421875 458.171875 60.503906 L 437.566406 87.160156 C 436.53125 88.503906 436.632812 90.402344 437.804688 91.625 L 458.636719 113.335938 C 458.722656 113.425781 458.726562 113.566406 458.644531 113.660156 C 458.558594 113.753906 458.417969 113.769531 458.320312 113.691406 L 434.253906 95.632812 C 432.898438 94.613281 431.003906 94.742188 429.796875 95.933594 L 405.816406 119.601562 C 405.742188 119.675781 405.625 119.679688 405.546875 119.609375 C 405.46875 119.542969 405.457031 119.425781 405.523438 119.339844 L 426.128906 92.683594 C 427.164062 91.34375 427.0625 89.445312 425.890625 88.222656 L 405.058594 66.511719 C 404.972656 66.421875 404.96875 66.277344 405.050781 66.183594 C 405.132812 66.089844 405.273438 66.078125 405.375 66.152344 Z M 405.375 66.152344 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_9f3593191b">
-                    <path d="M 0.894531 0 L 54.863281 0 L 54.863281 59.6875 L 0.894531 59.6875 Z M 0.894531 0 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_1d3c06749e">
-                    <path
-                      d="M -25.289062 35.902344 L 27.386719 -23.5625 L 80.996094 23.929688 L 28.320312 83.394531 Z M -25.289062 35.902344 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_8eb3b0feb1">
-                    <path
-                      d="M 1.375 6.152344 L 25.441406 24.214844 C 26.796875 25.230469 28.691406 25.101562 29.898438 23.910156 L 53.875 0.242188 C 53.949219 0.167969 54.070312 0.164062 54.144531 0.234375 C 54.222656 0.304688 54.234375 0.421875 54.171875 0.503906 L 33.566406 27.160156 C 32.53125 28.503906 32.632812 30.402344 33.804688 31.625 L 54.636719 53.335938 C 54.722656 53.425781 54.726562 53.566406 54.644531 53.660156 C 54.558594 53.753906 54.417969 53.769531 54.320312 53.691406 L 30.253906 35.632812 C 28.898438 34.613281 27.003906 34.742188 25.796875 35.933594 L 1.816406 59.601562 C 1.742188 59.675781 1.625 59.679688 1.546875 59.609375 C 1.46875 59.542969 1.457031 59.425781 1.523438 59.339844 L 22.128906 32.683594 C 23.164062 31.34375 23.0625 29.445312 21.890625 28.222656 L 1.058594 6.511719 C 0.972656 6.421875 0.96875 6.277344 1.050781 6.183594 C 1.132812 6.089844 1.273438 6.078125 1.375 6.152344 Z M 1.375 6.152344 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_bd1d78bf99">
-                    <rect x="0" width="55" y="0" height="60" />
-                  </clipPath>
-                  <clipPath id="p1_b03de8f9dc">
-                    <path d="M 0.257812 86 L 331 86 L 331 90 L 0.257812 90 Z M 0.257812 86 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_5f63424e1b">
-                    <path d="M 533 86 L 863.742188 86 L 863.742188 90 L 533 90 Z M 533 86 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_ed37401e14">
-                    <path d="M 0.257812 1201 L 331 1201 L 331 1205 L 0.257812 1205 Z M 0.257812 1201 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_aba68ad061">
-                    <path d="M 533 1201 L 863.742188 1201 L 863.742188 1205 L 533 1205 Z M 533 1201 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_e3b3b2f4c8">
-                    <path d="M 29 55 L 33 55 L 33 1252.5 L 29 1252.5 Z M 29 55 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_71b21c93a0">
-                    <path d="M 830 55 L 834 55 L 834 1252.5 L 830 1252.5 Z M 830 55 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_56ac579a8a">
-                    <path
-                      d="M 390.804688 1199.5 L 398.726562 1199.5 L 398.726562 1206.285156 L 390.804688 1206.285156 Z M 390.804688 1199.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_e69a2818fa">
-                    <path
-                      d="M 398.726562 1202.890625 C 398.726562 1201.019531 396.960938 1199.5 394.777344 1199.5 C 392.597656 1199.5 390.828125 1201.019531 390.828125 1202.890625 C 390.828125 1204.765625 392.597656 1206.285156 394.777344 1206.285156 C 396.960938 1206.285156 398.726562 1204.765625 398.726562 1202.890625 Z M 398.726562 1202.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_835aefdf21">
-                    <path d="M 0.804688 0.5 L 8.726562 0.5 L 8.726562 7.285156 L 0.804688 7.285156 Z M 0.804688 0.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_74f3ef54f1">
-                    <path
-                      d="M 8.726562 3.890625 C 8.726562 2.019531 6.960938 0.5 4.777344 0.5 C 2.597656 0.5 0.828125 2.019531 0.828125 3.890625 C 0.828125 5.765625 2.597656 7.285156 4.777344 7.285156 C 6.960938 7.285156 8.726562 5.765625 8.726562 3.890625 Z M 8.726562 3.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_1f712b9913">
-                    <rect x="0" width="9" y="0" height="8" />
-                  </clipPath>
-                  <clipPath id="p1_267522681c">
-                    <path
-                      d="M 427.808594 1199.5 L 435.730469 1199.5 L 435.730469 1206.285156 L 427.808594 1206.285156 Z M 427.808594 1199.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_8b0482d69a">
-                    <path
-                      d="M 435.730469 1202.890625 C 435.730469 1201.019531 433.960938 1199.5 431.78125 1199.5 C 429.597656 1199.5 427.832031 1201.019531 427.832031 1202.890625 C 427.832031 1204.765625 429.597656 1206.285156 431.78125 1206.285156 C 433.960938 1206.285156 435.730469 1204.765625 435.730469 1202.890625 Z M 435.730469 1202.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_cc81a244f8">
-                    <path d="M 0.808594 0.5 L 8.730469 0.5 L 8.730469 7.285156 L 0.808594 7.285156 Z M 0.808594 0.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_4cea17cc5f">
-                    <path
-                      d="M 8.730469 3.890625 C 8.730469 2.019531 6.960938 0.5 4.78125 0.5 C 2.597656 0.5 0.832031 2.019531 0.832031 3.890625 C 0.832031 5.765625 2.597656 7.285156 4.78125 7.285156 C 6.960938 7.285156 8.730469 5.765625 8.730469 3.890625 Z M 8.730469 3.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_4af95d437c">
-                    <rect x="0" width="9" y="0" height="8" />
-                  </clipPath>
-                  <clipPath id="p1_f210e1942a">
-                    <path
-                      d="M 464.808594 1199.5 L 472.730469 1199.5 L 472.730469 1206.285156 L 464.808594 1206.285156 Z M 464.808594 1199.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_be6e92902c">
-                    <path
-                      d="M 472.730469 1202.890625 C 472.730469 1201.019531 470.964844 1199.5 468.78125 1199.5 C 466.601562 1199.5 464.832031 1201.019531 464.832031 1202.890625 C 464.832031 1204.765625 466.601562 1206.285156 468.78125 1206.285156 C 470.964844 1206.285156 472.730469 1204.765625 472.730469 1202.890625 Z M 472.730469 1202.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_f1789efda1">
-                    <path d="M 0.808594 0.5 L 8.730469 0.5 L 8.730469 7.285156 L 0.808594 7.285156 Z M 0.808594 0.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_d9ebad41e2">
-                    <path
-                      d="M 8.730469 3.890625 C 8.730469 2.019531 6.964844 0.5 4.78125 0.5 C 2.601562 0.5 0.832031 2.019531 0.832031 3.890625 C 0.832031 5.765625 2.601562 7.285156 4.78125 7.285156 C 6.964844 7.285156 8.730469 5.765625 8.730469 3.890625 Z M 8.730469 3.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p1_de6713f9a1">
-                    <rect x="0" width="9" y="0" height="8" />
-                  </clipPath>
-                </defs>
-                <g filter="url(#p1_starGlow)" clip-path="url(#p1_de069d3324)">
-                  <g clip-path="url(#p1_bfe05a66dc)">
-                    <g clip-path="url(#p1_0c113c179d)">
-                      <g transform="matrix(1, 0, 0, 1, 370, 2)">
-                        <g clip-path="url(#p1_d693a03f15)">
-                          <g clip-path="url(#p1_b6dbd5b52a)">
-                            <g clip-path="url(#p1_be0f7595d1)">
-                              <g clip-path="url(#p1_6e1dc4df75)">
-                                <path fill="url(#p1_starGrad)"
-                                  d="M -2.277344 -2 L 125.65625 -1.738281 L 125.289062 178.167969 L -2.644531 177.90625 Z M -2.277344 -2 "
-                                  fill-opacity="1" fill-rule="nonzero" />
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g filter="url(#p1_starGlow)" clip-path="url(#p1_5239dc7027)">
-                  <g clip-path="url(#p1_4689bb88e4)">
-                    <g clip-path="url(#p1_f7060829b1)">
-                      <g transform="matrix(1, 0, 0, 1, 404, 60)">
-                        <g clip-path="url(#p1_bd1d78bf99)">
-                          <g clip-path="url(#p1_9f3593191b)">
-                            <g clip-path="url(#p1_1d3c06749e)">
-                              <g clip-path="url(#p1_8eb3b0feb1)">
-                                <path fill="url(#p1_starGrad)"
-                                  d="M -29.113281 36.132812 L 27.15625 -27.382812 L 84.820312 23.695312 L 28.550781 87.214844 Z M -29.113281 36.132812 "
-                                  fill-opacity="1" fill-rule="nonzero" />
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g clip-path="url(#p1_b03de8f9dc)">
-                  <path stroke-linecap="butt" transform="matrix(0.749551, 0, 0, 0.749551, 0.258373, 86.964728)"
-                    fill="none" stroke-linejoin="miter" d="M -0.000747136 2.001351 L 438.000816 2.001351 "
-                    stroke="url(#p1_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p1_5f63424e1b)">
-                  <path stroke-linecap="butt" transform="matrix(0.749551, 0, 0, 0.749551, 535.006742, 86.964728)"
-                    fill="none" stroke-linejoin="miter" d="M 0.00142806 2.001351 L 438.002992 2.001351 "
-                    stroke="url(#p1_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p1_ed37401e14)">
-                  <path stroke-linecap="butt" transform="matrix(0.749551, 0, 0, 0.749551, 0.258373, 1201.394273)"
-                    fill="none" stroke-linejoin="miter" d="M -0.000747136 2.001542 L 438.000816 2.001542 "
-                    stroke="url(#p1_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p1_aba68ad061)">
-                  <path stroke-linecap="butt" transform="matrix(0.749551, 0, 0, 0.749551, 535.006742, 1201.394273)"
-                    fill="none" stroke-linejoin="miter" d="M 0.00142806 2.001542 L 438.002992 2.001542 "
-                    stroke="url(#p1_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p1_e3b3b2f4c8)">
-                  <path stroke-linecap="butt" transform="matrix(0, -0.749551, 0.749551, 0, 29.737281, 1252.318195)"
-                    fill="none" stroke-linejoin="miter" d="M 0.00238699 2.002531 L 1594.153807 2.002531 "
-                    stroke="url(#p1_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p1_71b21c93a0)">
-                  <path stroke-linecap="butt" transform="matrix(0, -0.749551, 0.749551, 0, 830.801674, 1252.20635)"
-                    fill="none" stroke-linejoin="miter" d="M -0.000908398 2.000007 L 1594.155723 2.000007 "
-                    stroke="url(#p1_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p1_56ac579a8a)">
-                  <g clip-path="url(#p1_e69a2818fa)">
-                    <g transform="matrix(1, 0, 0, 1, 390, 1199)">
-                      <g clip-path="url(#p1_1f712b9913)">
-                        <g clip-path="url(#p1_835aefdf21)">
-                          <g clip-path="url(#p1_74f3ef54f1)">
-                            <path fill="url(#p1_starGrad)"
-                              d="M 8.726562 0.5 L 8.726562 7.285156 L 0.832031 7.285156 L 0.832031 0.5 Z M 8.726562 0.5 "
-                              fill-opacity="1" fill-rule="nonzero" />
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g clip-path="url(#p1_267522681c)">
-                  <g clip-path="url(#p1_8b0482d69a)">
-                    <g transform="matrix(1, 0, 0, 1, 427, 1199)">
-                      <g clip-path="url(#p1_4af95d437c)">
-                        <g clip-path="url(#p1_cc81a244f8)">
-                          <g clip-path="url(#p1_4cea17cc5f)">
-                            <path fill="url(#p1_starGrad)"
-                              d="M 8.730469 0.5 L 8.730469 7.285156 L 0.832031 7.285156 L 0.832031 0.5 Z M 8.730469 0.5 "
-                              fill-opacity="1" fill-rule="nonzero" />
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g clip-path="url(#p1_f210e1942a)">
-                  <g clip-path="url(#p1_be6e92902c)">
-                    <g transform="matrix(1, 0, 0, 1, 464, 1199)">
-                      <g clip-path="url(#p1_de6713f9a1)">
-                        <g clip-path="url(#p1_f1789efda1)">
-                          <g clip-path="url(#p1_d9ebad41e2)">
-                            <path fill="url(#p1_starGrad)"
-                              d="M 8.730469 0.5 L 8.730469 7.285156 L 0.835938 7.285156 L 0.835938 0.5 Z M 8.730469 0.5 "
-                              fill-opacity="1" fill-rule="nonzero" />
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-            <div class="holo-card-inner">
-              <h3 class="holo-category-title">DEVELOPMENT &amp; ENGINES</h3>
-              <ul class="holo-skill-list">
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="java-cs">Java • C#</button></li>
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="react-flutter">React • Flutter</button></li>
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="html-css">HTML5 &amp; CSS3</button></li>
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="unity">Unity Engine</button></li>
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="git">Git / GitHub</button></li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Card 2: Database & Backend -->
-          <div class="skill-group skill-holo-card" data-box-open data-skill-group="db">
-            <div class="holo-border-frame" aria-hidden="true">
-              <svg style="overflow:visible" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" viewBox="0 0 864 1253.250002"
-                preserveAspectRatio="none" version="1.0">
-                <defs>
-                  <linearGradient id="p2_holoGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="864" y2="1253.25">
-                    <animateTransform attributeName="gradientTransform" type="rotate" from="0 432 626.6"
-                      to="360 432 626.6" dur="6s" begin="-2s" repeatCount="indefinite" />
-                    <stop offset="0%" stop-color="#3D2968" />
-                    <stop offset="20%" stop-color="#8E63DB" />
-                    <stop offset="38%" stop-color="#D4B8FF" />
-                    <stop offset="50%" stop-color="#FFFFFF" />
-                    <stop offset="62%" stop-color="#D4B8FF" />
-                    <stop offset="80%" stop-color="#8E63DB" />
-                    <stop offset="100%" stop-color="#3D2968" />
-                  </linearGradient>
-                  <linearGradient id="p2_starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <animateTransform attributeName="gradientTransform" type="rotate" from="0 0.5 0.5" to="360 0.5 0.5"
-                      dur="4s" begin="-1.33s" repeatCount="indefinite" />
-                    <stop offset="0%" stop-color="#8E63DB" />
-                    <stop offset="25%" stop-color="#D4B8FF" />
-                    <stop offset="50%" stop-color="#FFFFFF" />
-                    <stop offset="75%" stop-color="#EADCFE" />
-                    <stop offset="100%" stop-color="#8E63DB" />
-                  </linearGradient>
-                  <filter id="p2_starGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                  <clipPath id="p2_de069d3324">
-                    <path d="M 370 2 L 493 2 L 493 177 L 370 177 Z M 370 2 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_bfe05a66dc">
-                    <path
-                      d="M 370.214844 2.503906 L 493.152344 2.757812 L 492.796875 177.164062 L 369.859375 176.914062 Z M 370.214844 2.503906 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_0c113c179d">
-                    <path
-                      d="M 431.839844 3.078125 L 435.765625 80.851562 C 435.851562 82.546875 437.160156 83.925781 438.847656 84.105469 L 492.539062 89.78125 C 492.695312 89.800781 492.8125 89.929688 492.8125 90.085938 C 492.8125 90.246094 492.695312 90.375 492.539062 90.390625 L 438.824219 95.847656 C 437.136719 96.019531 435.824219 97.398438 435.730469 99.09375 L 431.484375 176.847656 C 431.476562 176.929688 431.410156 176.992188 431.328125 176.992188 C 431.246094 176.992188 431.175781 176.929688 431.171875 176.847656 L 427.242188 99.074219 C 427.160156 97.378906 425.851562 95.996094 424.164062 95.820312 L 370.472656 90.140625 C 370.316406 90.125 370.199219 89.992188 370.199219 89.835938 C 370.199219 89.679688 370.316406 89.550781 370.472656 89.535156 L 424.1875 84.074219 C 425.875 83.902344 427.1875 82.527344 427.28125 80.832031 L 431.527344 3.078125 C 431.53125 2.996094 431.601562 2.929688 431.683594 2.929688 C 431.765625 2.929688 431.832031 2.996094 431.839844 3.078125 Z M 431.839844 3.078125 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_b6dbd5b52a">
-                    <path
-                      d="M 0.117188 0.878906 L 122.921875 0.878906 L 122.921875 175 L 0.117188 175 Z M 0.117188 0.878906 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_be0f7595d1">
-                    <path
-                      d="M 0.214844 0.503906 L 123.152344 0.757812 L 122.796875 175.164062 L -0.140625 174.914062 Z M 0.214844 0.503906 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_6e1dc4df75">
-                    <path
-                      d="M 61.839844 1.078125 L 65.765625 78.851562 C 65.851562 80.546875 67.160156 81.925781 68.847656 82.105469 L 122.539062 87.78125 C 122.695312 87.800781 122.8125 87.929688 122.8125 88.085938 C 122.8125 88.246094 122.695312 88.375 122.539062 88.390625 L 68.824219 93.847656 C 67.136719 94.019531 65.824219 95.398438 65.730469 97.09375 L 61.484375 174.847656 C 61.476562 174.929688 61.410156 174.992188 61.328125 174.992188 C 61.246094 174.992188 61.175781 174.929688 61.171875 174.847656 L 57.242188 97.074219 C 57.160156 95.378906 55.851562 93.996094 54.164062 93.820312 L 0.472656 88.140625 C 0.316406 88.125 0.199219 87.992188 0.199219 87.835938 C 0.199219 87.679688 0.316406 87.550781 0.472656 87.535156 L 54.1875 82.074219 C 55.875 81.902344 57.1875 80.527344 57.28125 78.832031 L 61.527344 1.078125 C 61.53125 0.996094 61.601562 0.929688 61.683594 0.929688 C 61.765625 0.929688 61.832031 0.996094 61.839844 1.078125 Z M 61.839844 1.078125 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_d693a03f15">
-                    <rect x="0" width="123" y="0" height="175" />
-                  </clipPath>
-                  <clipPath id="p2_5239dc7027">
-                    <path d="M 404 60 L 459 60 L 459 120 L 404 120 Z M 404 60 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_4689bb88e4">
-                    <path
-                      d="M 378.710938 95.902344 L 431.386719 36.4375 L 484.996094 83.929688 L 432.320312 143.394531 Z M 378.710938 95.902344 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_f7060829b1">
-                    <path
-                      d="M 405.375 66.152344 L 429.441406 84.214844 C 430.796875 85.230469 432.691406 85.101562 433.898438 83.910156 L 457.875 60.242188 C 457.949219 60.167969 458.070312 60.164062 458.144531 60.234375 C 458.222656 60.304688 458.234375 60.421875 458.171875 60.503906 L 437.566406 87.160156 C 436.53125 88.503906 436.632812 90.402344 437.804688 91.625 L 458.636719 113.335938 C 458.722656 113.425781 458.726562 113.566406 458.644531 113.660156 C 458.558594 113.753906 458.417969 113.769531 458.320312 113.691406 L 434.253906 95.632812 C 432.898438 94.613281 431.003906 94.742188 429.796875 95.933594 L 405.816406 119.601562 C 405.742188 119.675781 405.625 119.679688 405.546875 119.609375 C 405.46875 119.542969 405.457031 119.425781 405.523438 119.339844 L 426.128906 92.683594 C 427.164062 91.34375 427.0625 89.445312 425.890625 88.222656 L 405.058594 66.511719 C 404.972656 66.421875 404.96875 66.277344 405.050781 66.183594 C 405.132812 66.089844 405.273438 66.078125 405.375 66.152344 Z M 405.375 66.152344 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_9f3593191b">
-                    <path d="M 0.894531 0 L 54.863281 0 L 54.863281 59.6875 L 0.894531 59.6875 Z M 0.894531 0 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_1d3c06749e">
-                    <path
-                      d="M -25.289062 35.902344 L 27.386719 -23.5625 L 80.996094 23.929688 L 28.320312 83.394531 Z M -25.289062 35.902344 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_8eb3b0feb1">
-                    <path
-                      d="M 1.375 6.152344 L 25.441406 24.214844 C 26.796875 25.230469 28.691406 25.101562 29.898438 23.910156 L 53.875 0.242188 C 53.949219 0.167969 54.070312 0.164062 54.144531 0.234375 C 54.222656 0.304688 54.234375 0.421875 54.171875 0.503906 L 33.566406 27.160156 C 32.53125 28.503906 32.632812 30.402344 33.804688 31.625 L 54.636719 53.335938 C 54.722656 53.425781 54.726562 53.566406 54.644531 53.660156 C 54.558594 53.753906 54.417969 53.769531 54.320312 53.691406 L 30.253906 35.632812 C 28.898438 34.613281 27.003906 34.742188 25.796875 35.933594 L 1.816406 59.601562 C 1.742188 59.675781 1.625 59.679688 1.546875 59.609375 C 1.46875 59.542969 1.457031 59.425781 1.523438 59.339844 L 22.128906 32.683594 C 23.164062 31.34375 23.0625 29.445312 21.890625 28.222656 L 1.058594 6.511719 C 0.972656 6.421875 0.96875 6.277344 1.050781 6.183594 C 1.132812 6.089844 1.273438 6.078125 1.375 6.152344 Z M 1.375 6.152344 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_bd1d78bf99">
-                    <rect x="0" width="55" y="0" height="60" />
-                  </clipPath>
-                  <clipPath id="p2_b03de8f9dc">
-                    <path d="M 0.257812 86 L 331 86 L 331 90 L 0.257812 90 Z M 0.257812 86 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_5f63424e1b">
-                    <path d="M 533 86 L 863.742188 86 L 863.742188 90 L 533 90 Z M 533 86 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_ed37401e14">
-                    <path d="M 0.257812 1201 L 331 1201 L 331 1205 L 0.257812 1205 Z M 0.257812 1201 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_aba68ad061">
-                    <path d="M 533 1201 L 863.742188 1201 L 863.742188 1205 L 533 1205 Z M 533 1201 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_e3b3b2f4c8">
-                    <path d="M 29 55 L 33 55 L 33 1252.5 L 29 1252.5 Z M 29 55 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_71b21c93a0">
-                    <path d="M 830 55 L 834 55 L 834 1252.5 L 830 1252.5 Z M 830 55 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_56ac579a8a">
-                    <path
-                      d="M 390.804688 1199.5 L 398.726562 1199.5 L 398.726562 1206.285156 L 390.804688 1206.285156 Z M 390.804688 1199.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_e69a2818fa">
-                    <path
-                      d="M 398.726562 1202.890625 C 398.726562 1201.019531 396.960938 1199.5 394.777344 1199.5 C 392.597656 1199.5 390.828125 1201.019531 390.828125 1202.890625 C 390.828125 1204.765625 392.597656 1206.285156 394.777344 1206.285156 C 396.960938 1206.285156 398.726562 1204.765625 398.726562 1202.890625 Z M 398.726562 1202.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_835aefdf21">
-                    <path d="M 0.804688 0.5 L 8.726562 0.5 L 8.726562 7.285156 L 0.804688 7.285156 Z M 0.804688 0.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_74f3ef54f1">
-                    <path
-                      d="M 8.726562 3.890625 C 8.726562 2.019531 6.960938 0.5 4.777344 0.5 C 2.597656 0.5 0.828125 2.019531 0.828125 3.890625 C 0.828125 5.765625 2.597656 7.285156 4.777344 7.285156 C 6.960938 7.285156 8.726562 5.765625 8.726562 3.890625 Z M 8.726562 3.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_1f712b9913">
-                    <rect x="0" width="9" y="0" height="8" />
-                  </clipPath>
-                  <clipPath id="p2_267522681c">
-                    <path
-                      d="M 427.808594 1199.5 L 435.730469 1199.5 L 435.730469 1206.285156 L 427.808594 1206.285156 Z M 427.808594 1199.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_8b0482d69a">
-                    <path
-                      d="M 435.730469 1202.890625 C 435.730469 1201.019531 433.960938 1199.5 431.78125 1199.5 C 429.597656 1199.5 427.832031 1201.019531 427.832031 1202.890625 C 427.832031 1204.765625 429.597656 1206.285156 431.78125 1206.285156 C 433.960938 1206.285156 435.730469 1204.765625 435.730469 1202.890625 Z M 435.730469 1202.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_cc81a244f8">
-                    <path d="M 0.808594 0.5 L 8.730469 0.5 L 8.730469 7.285156 L 0.808594 7.285156 Z M 0.808594 0.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_4cea17cc5f">
-                    <path
-                      d="M 8.730469 3.890625 C 8.730469 2.019531 6.960938 0.5 4.78125 0.5 C 2.597656 0.5 0.832031 2.019531 0.832031 3.890625 C 0.832031 5.765625 2.597656 7.285156 4.78125 7.285156 C 6.960938 7.285156 8.730469 5.765625 8.730469 3.890625 Z M 8.730469 3.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_4af95d437c">
-                    <rect x="0" width="9" y="0" height="8" />
-                  </clipPath>
-                  <clipPath id="p2_f210e1942a">
-                    <path
-                      d="M 464.808594 1199.5 L 472.730469 1199.5 L 472.730469 1206.285156 L 464.808594 1206.285156 Z M 464.808594 1199.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_be6e92902c">
-                    <path
-                      d="M 472.730469 1202.890625 C 472.730469 1201.019531 470.964844 1199.5 468.78125 1199.5 C 466.601562 1199.5 464.832031 1201.019531 464.832031 1202.890625 C 464.832031 1204.765625 466.601562 1206.285156 468.78125 1206.285156 C 470.964844 1206.285156 472.730469 1204.765625 472.730469 1202.890625 Z M 472.730469 1202.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_f1789efda1">
-                    <path d="M 0.808594 0.5 L 8.730469 0.5 L 8.730469 7.285156 L 0.808594 7.285156 Z M 0.808594 0.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_d9ebad41e2">
-                    <path
-                      d="M 8.730469 3.890625 C 8.730469 2.019531 6.964844 0.5 4.78125 0.5 C 2.601562 0.5 0.832031 2.019531 0.832031 3.890625 C 0.832031 5.765625 2.601562 7.285156 4.78125 7.285156 C 6.964844 7.285156 8.730469 5.765625 8.730469 3.890625 Z M 8.730469 3.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p2_de6713f9a1">
-                    <rect x="0" width="9" y="0" height="8" />
-                  </clipPath>
-                </defs>
-                <g filter="url(#p2_starGlow)" clip-path="url(#p2_de069d3324)">
-                  <g clip-path="url(#p2_bfe05a66dc)">
-                    <g clip-path="url(#p2_0c113c179d)">
-                      <g transform="matrix(1, 0, 0, 1, 370, 2)">
-                        <g clip-path="url(#p2_d693a03f15)">
-                          <g clip-path="url(#p2_b6dbd5b52a)">
-                            <g clip-path="url(#p2_be0f7595d1)">
-                              <g clip-path="url(#p2_6e1dc4df75)">
-                                <path fill="url(#p2_starGrad)"
-                                  d="M -2.277344 -2 L 125.65625 -1.738281 L 125.289062 178.167969 L -2.644531 177.90625 Z M -2.277344 -2 "
-                                  fill-opacity="1" fill-rule="nonzero" />
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g filter="url(#p2_starGlow)" clip-path="url(#p2_5239dc7027)">
-                  <g clip-path="url(#p2_4689bb88e4)">
-                    <g clip-path="url(#p2_f7060829b1)">
-                      <g transform="matrix(1, 0, 0, 1, 404, 60)">
-                        <g clip-path="url(#p2_bd1d78bf99)">
-                          <g clip-path="url(#p2_9f3593191b)">
-                            <g clip-path="url(#p2_1d3c06749e)">
-                              <g clip-path="url(#p2_8eb3b0feb1)">
-                                <path fill="url(#p2_starGrad)"
-                                  d="M -29.113281 36.132812 L 27.15625 -27.382812 L 84.820312 23.695312 L 28.550781 87.214844 Z M -29.113281 36.132812 "
-                                  fill-opacity="1" fill-rule="nonzero" />
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g clip-path="url(#p2_b03de8f9dc)">
-                  <path stroke-linecap="butt" transform="matrix(0.749551, 0, 0, 0.749551, 0.258373, 86.964728)"
-                    fill="none" stroke-linejoin="miter" d="M -0.000747136 2.001351 L 438.000816 2.001351 "
-                    stroke="url(#p2_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p2_5f63424e1b)">
-                  <path stroke-linecap="butt" transform="matrix(0.749551, 0, 0, 0.749551, 535.006742, 86.964728)"
-                    fill="none" stroke-linejoin="miter" d="M 0.00142806 2.001351 L 438.002992 2.001351 "
-                    stroke="url(#p2_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p2_ed37401e14)">
-                  <path stroke-linecap="butt" transform="matrix(0.749551, 0, 0, 0.749551, 0.258373, 1201.394273)"
-                    fill="none" stroke-linejoin="miter" d="M -0.000747136 2.001542 L 438.000816 2.001542 "
-                    stroke="url(#p2_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p2_aba68ad061)">
-                  <path stroke-linecap="butt" transform="matrix(0.749551, 0, 0, 0.749551, 535.006742, 1201.394273)"
-                    fill="none" stroke-linejoin="miter" d="M 0.00142806 2.001542 L 438.002992 2.001542 "
-                    stroke="url(#p2_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p2_e3b3b2f4c8)">
-                  <path stroke-linecap="butt" transform="matrix(0, -0.749551, 0.749551, 0, 29.737281, 1252.318195)"
-                    fill="none" stroke-linejoin="miter" d="M 0.00238699 2.002531 L 1594.153807 2.002531 "
-                    stroke="url(#p2_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p2_71b21c93a0)">
-                  <path stroke-linecap="butt" transform="matrix(0, -0.749551, 0.749551, 0, 830.801674, 1252.20635)"
-                    fill="none" stroke-linejoin="miter" d="M -0.000908398 2.000007 L 1594.155723 2.000007 "
-                    stroke="url(#p2_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p2_56ac579a8a)">
-                  <g clip-path="url(#p2_e69a2818fa)">
-                    <g transform="matrix(1, 0, 0, 1, 390, 1199)">
-                      <g clip-path="url(#p2_1f712b9913)">
-                        <g clip-path="url(#p2_835aefdf21)">
-                          <g clip-path="url(#p2_74f3ef54f1)">
-                            <path fill="url(#p2_starGrad)"
-                              d="M 8.726562 0.5 L 8.726562 7.285156 L 0.832031 7.285156 L 0.832031 0.5 Z M 8.726562 0.5 "
-                              fill-opacity="1" fill-rule="nonzero" />
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g clip-path="url(#p2_267522681c)">
-                  <g clip-path="url(#p2_8b0482d69a)">
-                    <g transform="matrix(1, 0, 0, 1, 427, 1199)">
-                      <g clip-path="url(#p2_4af95d437c)">
-                        <g clip-path="url(#p2_cc81a244f8)">
-                          <g clip-path="url(#p2_4cea17cc5f)">
-                            <path fill="url(#p2_starGrad)"
-                              d="M 8.730469 0.5 L 8.730469 7.285156 L 0.832031 7.285156 L 0.832031 0.5 Z M 8.730469 0.5 "
-                              fill-opacity="1" fill-rule="nonzero" />
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g clip-path="url(#p2_f210e1942a)">
-                  <g clip-path="url(#p2_be6e92902c)">
-                    <g transform="matrix(1, 0, 0, 1, 464, 1199)">
-                      <g clip-path="url(#p2_de6713f9a1)">
-                        <g clip-path="url(#p2_f1789efda1)">
-                          <g clip-path="url(#p2_d9ebad41e2)">
-                            <path fill="url(#p2_starGrad)"
-                              d="M 8.730469 0.5 L 8.730469 7.285156 L 0.835938 7.285156 L 0.835938 0.5 Z M 8.730469 0.5 "
-                              fill-opacity="1" fill-rule="nonzero" />
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-            <div class="holo-card-inner">
-              <h3 class="holo-category-title">DATABASE &amp; BACKEND</h3>
-              <ul class="holo-skill-list">
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="mysql-oracle">MySQL • Oracle</button></li>
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="supabase-firebase">Supabase •
-                    Firebase</button></li>
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="db-schema">Database Schema Design</button>
-                </li>
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="json-rest">JSON &amp; REST APIs</button>
-                </li>
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="qa-testing">QA Testing</button></li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Card 3: Creative & AI -->
-          <div class="skill-group skill-holo-card" data-box-open data-skill-group="creative">
-            <div class="holo-border-frame" aria-hidden="true">
-              <svg style="overflow:visible" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" zoomAndPan="magnify" viewBox="0 0 864 1253.250002"
-                preserveAspectRatio="none" version="1.0">
-                <defs>
-                  <linearGradient id="p3_holoGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="864" y2="1253.25">
-                    <animateTransform attributeName="gradientTransform" type="rotate" from="0 432 626.6"
-                      to="360 432 626.6" dur="6s" begin="-4s" repeatCount="indefinite" />
-                    <stop offset="0%" stop-color="#3D2968" />
-                    <stop offset="20%" stop-color="#8E63DB" />
-                    <stop offset="38%" stop-color="#D4B8FF" />
-                    <stop offset="50%" stop-color="#FFFFFF" />
-                    <stop offset="62%" stop-color="#D4B8FF" />
-                    <stop offset="80%" stop-color="#8E63DB" />
-                    <stop offset="100%" stop-color="#3D2968" />
-                  </linearGradient>
-                  <linearGradient id="p3_starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <animateTransform attributeName="gradientTransform" type="rotate" from="0 0.5 0.5" to="360 0.5 0.5"
-                      dur="4s" begin="-2.67s" repeatCount="indefinite" />
-                    <stop offset="0%" stop-color="#8E63DB" />
-                    <stop offset="25%" stop-color="#D4B8FF" />
-                    <stop offset="50%" stop-color="#FFFFFF" />
-                    <stop offset="75%" stop-color="#EADCFE" />
-                    <stop offset="100%" stop-color="#8E63DB" />
-                  </linearGradient>
-                  <filter id="p3_starGlow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
-                    <feMerge>
-                      <feMergeNode in="blur" />
-                      <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                  </filter>
-                  <clipPath id="p3_de069d3324">
-                    <path d="M 370 2 L 493 2 L 493 177 L 370 177 Z M 370 2 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_bfe05a66dc">
-                    <path
-                      d="M 370.214844 2.503906 L 493.152344 2.757812 L 492.796875 177.164062 L 369.859375 176.914062 Z M 370.214844 2.503906 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_0c113c179d">
-                    <path
-                      d="M 431.839844 3.078125 L 435.765625 80.851562 C 435.851562 82.546875 437.160156 83.925781 438.847656 84.105469 L 492.539062 89.78125 C 492.695312 89.800781 492.8125 89.929688 492.8125 90.085938 C 492.8125 90.246094 492.695312 90.375 492.539062 90.390625 L 438.824219 95.847656 C 437.136719 96.019531 435.824219 97.398438 435.730469 99.09375 L 431.484375 176.847656 C 431.476562 176.929688 431.410156 176.992188 431.328125 176.992188 C 431.246094 176.992188 431.175781 176.929688 431.171875 176.847656 L 427.242188 99.074219 C 427.160156 97.378906 425.851562 95.996094 424.164062 95.820312 L 370.472656 90.140625 C 370.316406 90.125 370.199219 89.992188 370.199219 89.835938 C 370.199219 89.679688 370.316406 89.550781 370.472656 89.535156 L 424.1875 84.074219 C 425.875 83.902344 427.1875 82.527344 427.28125 80.832031 L 431.527344 3.078125 C 431.53125 2.996094 431.601562 2.929688 431.683594 2.929688 C 431.765625 2.929688 431.832031 2.996094 431.839844 3.078125 Z M 431.839844 3.078125 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_b6dbd5b52a">
-                    <path
-                      d="M 0.117188 0.878906 L 122.921875 0.878906 L 122.921875 175 L 0.117188 175 Z M 0.117188 0.878906 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_be0f7595d1">
-                    <path
-                      d="M 0.214844 0.503906 L 123.152344 0.757812 L 122.796875 175.164062 L -0.140625 174.914062 Z M 0.214844 0.503906 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_6e1dc4df75">
-                    <path
-                      d="M 61.839844 1.078125 L 65.765625 78.851562 C 65.851562 80.546875 67.160156 81.925781 68.847656 82.105469 L 122.539062 87.78125 C 122.695312 87.800781 122.8125 87.929688 122.8125 88.085938 C 122.8125 88.246094 122.695312 88.375 122.539062 88.390625 L 68.824219 93.847656 C 67.136719 94.019531 65.824219 95.398438 65.730469 97.09375 L 61.484375 174.847656 C 61.476562 174.929688 61.410156 174.992188 61.328125 174.992188 C 61.246094 174.992188 61.175781 174.929688 61.171875 174.847656 L 57.242188 97.074219 C 57.160156 95.378906 55.851562 93.996094 54.164062 93.820312 L 0.472656 88.140625 C 0.316406 88.125 0.199219 87.992188 0.199219 87.835938 C 0.199219 87.679688 0.316406 87.550781 0.472656 87.535156 L 54.1875 82.074219 C 55.875 81.902344 57.1875 80.527344 57.28125 78.832031 L 61.527344 1.078125 C 61.53125 0.996094 61.601562 0.929688 61.683594 0.929688 C 61.765625 0.929688 61.832031 0.996094 61.839844 1.078125 Z M 61.839844 1.078125 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_d693a03f15">
-                    <rect x="0" width="123" y="0" height="175" />
-                  </clipPath>
-                  <clipPath id="p3_5239dc7027">
-                    <path d="M 404 60 L 459 60 L 459 120 L 404 120 Z M 404 60 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_4689bb88e4">
-                    <path
-                      d="M 378.710938 95.902344 L 431.386719 36.4375 L 484.996094 83.929688 L 432.320312 143.394531 Z M 378.710938 95.902344 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_f7060829b1">
-                    <path
-                      d="M 405.375 66.152344 L 429.441406 84.214844 C 430.796875 85.230469 432.691406 85.101562 433.898438 83.910156 L 457.875 60.242188 C 457.949219 60.167969 458.070312 60.164062 458.144531 60.234375 C 458.222656 60.304688 458.234375 60.421875 458.171875 60.503906 L 437.566406 87.160156 C 436.53125 88.503906 436.632812 90.402344 437.804688 91.625 L 458.636719 113.335938 C 458.722656 113.425781 458.726562 113.566406 458.644531 113.660156 C 458.558594 113.753906 458.417969 113.769531 458.320312 113.691406 L 434.253906 95.632812 C 432.898438 94.613281 431.003906 94.742188 429.796875 95.933594 L 405.816406 119.601562 C 405.742188 119.675781 405.625 119.679688 405.546875 119.609375 C 405.46875 119.542969 405.457031 119.425781 405.523438 119.339844 L 426.128906 92.683594 C 427.164062 91.34375 427.0625 89.445312 425.890625 88.222656 L 405.058594 66.511719 C 404.972656 66.421875 404.96875 66.277344 405.050781 66.183594 C 405.132812 66.089844 405.273438 66.078125 405.375 66.152344 Z M 405.375 66.152344 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_9f3593191b">
-                    <path d="M 0.894531 0 L 54.863281 0 L 54.863281 59.6875 L 0.894531 59.6875 Z M 0.894531 0 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_1d3c06749e">
-                    <path
-                      d="M -25.289062 35.902344 L 27.386719 -23.5625 L 80.996094 23.929688 L 28.320312 83.394531 Z M -25.289062 35.902344 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_8eb3b0feb1">
-                    <path
-                      d="M 1.375 6.152344 L 25.441406 24.214844 C 26.796875 25.230469 28.691406 25.101562 29.898438 23.910156 L 53.875 0.242188 C 53.949219 0.167969 54.070312 0.164062 54.144531 0.234375 C 54.222656 0.304688 54.234375 0.421875 54.171875 0.503906 L 33.566406 27.160156 C 32.53125 28.503906 32.632812 30.402344 33.804688 31.625 L 54.636719 53.335938 C 54.722656 53.425781 54.726562 53.566406 54.644531 53.660156 C 54.558594 53.753906 54.417969 53.769531 54.320312 53.691406 L 30.253906 35.632812 C 28.898438 34.613281 27.003906 34.742188 25.796875 35.933594 L 1.816406 59.601562 C 1.742188 59.675781 1.625 59.679688 1.546875 59.609375 C 1.46875 59.542969 1.457031 59.425781 1.523438 59.339844 L 22.128906 32.683594 C 23.164062 31.34375 23.0625 29.445312 21.890625 28.222656 L 1.058594 6.511719 C 0.972656 6.421875 0.96875 6.277344 1.050781 6.183594 C 1.132812 6.089844 1.273438 6.078125 1.375 6.152344 Z M 1.375 6.152344 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_bd1d78bf99">
-                    <rect x="0" width="55" y="0" height="60" />
-                  </clipPath>
-                  <clipPath id="p3_b03de8f9dc">
-                    <path d="M 0.257812 86 L 331 86 L 331 90 L 0.257812 90 Z M 0.257812 86 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_5f63424e1b">
-                    <path d="M 533 86 L 863.742188 86 L 863.742188 90 L 533 90 Z M 533 86 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_ed37401e14">
-                    <path d="M 0.257812 1201 L 331 1201 L 331 1205 L 0.257812 1205 Z M 0.257812 1201 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_aba68ad061">
-                    <path d="M 533 1201 L 863.742188 1201 L 863.742188 1205 L 533 1205 Z M 533 1201 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_e3b3b2f4c8">
-                    <path d="M 29 55 L 33 55 L 33 1252.5 L 29 1252.5 Z M 29 55 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_71b21c93a0">
-                    <path d="M 830 55 L 834 55 L 834 1252.5 L 830 1252.5 Z M 830 55 " clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_56ac579a8a">
-                    <path
-                      d="M 390.804688 1199.5 L 398.726562 1199.5 L 398.726562 1206.285156 L 390.804688 1206.285156 Z M 390.804688 1199.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_e69a2818fa">
-                    <path
-                      d="M 398.726562 1202.890625 C 398.726562 1201.019531 396.960938 1199.5 394.777344 1199.5 C 392.597656 1199.5 390.828125 1201.019531 390.828125 1202.890625 C 390.828125 1204.765625 392.597656 1206.285156 394.777344 1206.285156 C 396.960938 1206.285156 398.726562 1204.765625 398.726562 1202.890625 Z M 398.726562 1202.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_835aefdf21">
-                    <path d="M 0.804688 0.5 L 8.726562 0.5 L 8.726562 7.285156 L 0.804688 7.285156 Z M 0.804688 0.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_74f3ef54f1">
-                    <path
-                      d="M 8.726562 3.890625 C 8.726562 2.019531 6.960938 0.5 4.777344 0.5 C 2.597656 0.5 0.828125 2.019531 0.828125 3.890625 C 0.828125 5.765625 2.597656 7.285156 4.777344 7.285156 C 6.960938 7.285156 8.726562 5.765625 8.726562 3.890625 Z M 8.726562 3.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_1f712b9913">
-                    <rect x="0" width="9" y="0" height="8" />
-                  </clipPath>
-                  <clipPath id="p3_267522681c">
-                    <path
-                      d="M 427.808594 1199.5 L 435.730469 1199.5 L 435.730469 1206.285156 L 427.808594 1206.285156 Z M 427.808594 1199.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_8b0482d69a">
-                    <path
-                      d="M 435.730469 1202.890625 C 435.730469 1201.019531 433.960938 1199.5 431.78125 1199.5 C 429.597656 1199.5 427.832031 1201.019531 427.832031 1202.890625 C 427.832031 1204.765625 429.597656 1206.285156 431.78125 1206.285156 C 433.960938 1206.285156 435.730469 1204.765625 435.730469 1202.890625 Z M 435.730469 1202.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_cc81a244f8">
-                    <path d="M 0.808594 0.5 L 8.730469 0.5 L 8.730469 7.285156 L 0.808594 7.285156 Z M 0.808594 0.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_4cea17cc5f">
-                    <path
-                      d="M 8.730469 3.890625 C 8.730469 2.019531 6.960938 0.5 4.78125 0.5 C 2.597656 0.5 0.832031 2.019531 0.832031 3.890625 C 0.832031 5.765625 2.597656 7.285156 4.78125 7.285156 C 6.960938 7.285156 8.730469 5.765625 8.730469 3.890625 Z M 8.730469 3.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_4af95d437c">
-                    <rect x="0" width="9" y="0" height="8" />
-                  </clipPath>
-                  <clipPath id="p3_f210e1942a">
-                    <path
-                      d="M 464.808594 1199.5 L 472.730469 1199.5 L 472.730469 1206.285156 L 464.808594 1206.285156 Z M 464.808594 1199.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_be6e92902c">
-                    <path
-                      d="M 472.730469 1202.890625 C 472.730469 1201.019531 470.964844 1199.5 468.78125 1199.5 C 466.601562 1199.5 464.832031 1201.019531 464.832031 1202.890625 C 464.832031 1204.765625 466.601562 1206.285156 468.78125 1206.285156 C 470.964844 1206.285156 472.730469 1204.765625 472.730469 1202.890625 Z M 472.730469 1202.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_f1789efda1">
-                    <path d="M 0.808594 0.5 L 8.730469 0.5 L 8.730469 7.285156 L 0.808594 7.285156 Z M 0.808594 0.5 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_d9ebad41e2">
-                    <path
-                      d="M 8.730469 3.890625 C 8.730469 2.019531 6.964844 0.5 4.78125 0.5 C 2.601562 0.5 0.832031 2.019531 0.832031 3.890625 C 0.832031 5.765625 2.601562 7.285156 4.78125 7.285156 C 6.964844 7.285156 8.730469 5.765625 8.730469 3.890625 Z M 8.730469 3.890625 "
-                      clip-rule="nonzero" />
-                  </clipPath>
-                  <clipPath id="p3_de6713f9a1">
-                    <rect x="0" width="9" y="0" height="8" />
-                  </clipPath>
-                </defs>
-                <g filter="url(#p3_starGlow)" clip-path="url(#p3_de069d3324)">
-                  <g clip-path="url(#p3_bfe05a66dc)">
-                    <g clip-path="url(#p3_0c113c179d)">
-                      <g transform="matrix(1, 0, 0, 1, 370, 2)">
-                        <g clip-path="url(#p3_d693a03f15)">
-                          <g clip-path="url(#p3_b6dbd5b52a)">
-                            <g clip-path="url(#p3_be0f7595d1)">
-                              <g clip-path="url(#p3_6e1dc4df75)">
-                                <path fill="url(#p3_starGrad)"
-                                  d="M -2.277344 -2 L 125.65625 -1.738281 L 125.289062 178.167969 L -2.644531 177.90625 Z M -2.277344 -2 "
-                                  fill-opacity="1" fill-rule="nonzero" />
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g filter="url(#p3_starGlow)" clip-path="url(#p3_5239dc7027)">
-                  <g clip-path="url(#p3_4689bb88e4)">
-                    <g clip-path="url(#p3_f7060829b1)">
-                      <g transform="matrix(1, 0, 0, 1, 404, 60)">
-                        <g clip-path="url(#p3_bd1d78bf99)">
-                          <g clip-path="url(#p3_9f3593191b)">
-                            <g clip-path="url(#p3_1d3c06749e)">
-                              <g clip-path="url(#p3_8eb3b0feb1)">
-                                <path fill="url(#p3_starGrad)"
-                                  d="M -29.113281 36.132812 L 27.15625 -27.382812 L 84.820312 23.695312 L 28.550781 87.214844 Z M -29.113281 36.132812 "
-                                  fill-opacity="1" fill-rule="nonzero" />
-                              </g>
-                            </g>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g clip-path="url(#p3_b03de8f9dc)">
-                  <path stroke-linecap="butt" transform="matrix(0.749551, 0, 0, 0.749551, 0.258373, 86.964728)"
-                    fill="none" stroke-linejoin="miter" d="M -0.000747136 2.001351 L 438.000816 2.001351 "
-                    stroke="url(#p3_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p3_5f63424e1b)">
-                  <path stroke-linecap="butt" transform="matrix(0.749551, 0, 0, 0.749551, 535.006742, 86.964728)"
-                    fill="none" stroke-linejoin="miter" d="M 0.00142806 2.001351 L 438.002992 2.001351 "
-                    stroke="url(#p3_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p3_ed37401e14)">
-                  <path stroke-linecap="butt" transform="matrix(0.749551, 0, 0, 0.749551, 0.258373, 1201.394273)"
-                    fill="none" stroke-linejoin="miter" d="M -0.000747136 2.001542 L 438.000816 2.001542 "
-                    stroke="url(#p3_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p3_aba68ad061)">
-                  <path stroke-linecap="butt" transform="matrix(0.749551, 0, 0, 0.749551, 535.006742, 1201.394273)"
-                    fill="none" stroke-linejoin="miter" d="M 0.00142806 2.001542 L 438.002992 2.001542 "
-                    stroke="url(#p3_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p3_e3b3b2f4c8)">
-                  <path stroke-linecap="butt" transform="matrix(0, -0.749551, 0.749551, 0, 29.737281, 1252.318195)"
-                    fill="none" stroke-linejoin="miter" d="M 0.00238699 2.002531 L 1594.153807 2.002531 "
-                    stroke="url(#p3_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p3_71b21c93a0)">
-                  <path stroke-linecap="butt" transform="matrix(0, -0.749551, 0.749551, 0, 830.801674, 1252.20635)"
-                    fill="none" stroke-linejoin="miter" d="M -0.000908398 2.000007 L 1594.155723 2.000007 "
-                    stroke="url(#p3_holoGrad)" stroke-width="4" stroke-opacity="1" stroke-miterlimit="4" />
-                </g>
-                <g clip-path="url(#p3_56ac579a8a)">
-                  <g clip-path="url(#p3_e69a2818fa)">
-                    <g transform="matrix(1, 0, 0, 1, 390, 1199)">
-                      <g clip-path="url(#p3_1f712b9913)">
-                        <g clip-path="url(#p3_835aefdf21)">
-                          <g clip-path="url(#p3_74f3ef54f1)">
-                            <path fill="url(#p3_starGrad)"
-                              d="M 8.726562 0.5 L 8.726562 7.285156 L 0.832031 7.285156 L 0.832031 0.5 Z M 8.726562 0.5 "
-                              fill-opacity="1" fill-rule="nonzero" />
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g clip-path="url(#p3_267522681c)">
-                  <g clip-path="url(#p3_8b0482d69a)">
-                    <g transform="matrix(1, 0, 0, 1, 427, 1199)">
-                      <g clip-path="url(#p3_4af95d437c)">
-                        <g clip-path="url(#p3_cc81a244f8)">
-                          <g clip-path="url(#p3_4cea17cc5f)">
-                            <path fill="url(#p3_starGrad)"
-                              d="M 8.730469 0.5 L 8.730469 7.285156 L 0.832031 7.285156 L 0.832031 0.5 Z M 8.730469 0.5 "
-                              fill-opacity="1" fill-rule="nonzero" />
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-                <g clip-path="url(#p3_f210e1942a)">
-                  <g clip-path="url(#p3_be6e92902c)">
-                    <g transform="matrix(1, 0, 0, 1, 464, 1199)">
-                      <g clip-path="url(#p3_de6713f9a1)">
-                        <g clip-path="url(#p3_f1789efda1)">
-                          <g clip-path="url(#p3_d9ebad41e2)">
-                            <path fill="url(#p3_starGrad)"
-                              d="M 8.730469 0.5 L 8.730469 7.285156 L 0.835938 7.285156 L 0.835938 0.5 Z M 8.730469 0.5 "
-                              fill-opacity="1" fill-rule="nonzero" />
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-            <div class="holo-card-inner">
-              <h3 class="holo-category-title">CREATIVE &amp; AI</h3>
-              <ul class="holo-skill-list">
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="blender">Blender 3D</button></li>
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="procreate-krita">Procreate • Krita</button>
-                </li>
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="canva-capcut">Canva • CapCut •
-                    Pinterest</button></li>
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="ui-ux">UI/UX Layouts</button></li>
-                <li><button class="skill-btn holo-skill-btn" data-skill-id="ai-tooling">AI Tooling (Claude, ChatGPT,
-                    Antigravity IDE)</button></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Skill Popup Modal -->
-        <div class="skill-popup" id="skill-popup" role="dialog" aria-modal="true" aria-labelledby="skill-popup-title"
-          hidden>
-          <div class="skill-popup-inner">
-            <button class="skill-popup-close" id="skill-popup-close" aria-label="Close">&times;</button>
-            <h4 class="skill-popup-title" id="skill-popup-title"></h4>
-            <p class="skill-popup-desc" id="skill-popup-desc"></p>
-          </div>
-        </div>
-
-        <!-- Certifications Row -->
-        <div class="cert-row" data-reveal>
-          <div class="cert-row-title">
-            <span class="cert-line"></span>
-            <span class="cert-heading">CERTIFICATIONS</span>
-            <span class="cert-line"></span>
-          </div>
-          <div class="cert-items">
-            <span class="cert-item cert-animated">Certiport<span class="typing-cursor-inline">|</span></span>
-            <span class="cert-item">Java</span>
-            <span class="cert-item">Database</span>
-            <span class="cert-item">HTML &amp; CSS</span>
-          </div>
-        </div>
-
+        <span class="note">
+          <span class="n-hov">hover an arch, click to open it</span>
+          <span class="n-tap">tap a card to open it</span>
+        </span>
       </div>
-    </section>
 
-    <!-- ========================================================
-         WORKS SECTION: ARCH CARDS + GLAZING GRADIENT
-         ======================================================== -->
-    <section id="works" class="section gallery-section">
-      <div class="section-container">
-        <!-- WORKS TITLE SVG -->
-        <div class="works-title-block">
-          <div class="works-svg-title-wrap">
-            <div class="works-title-fx" id="works-title-fx">
-              <img src="assets/SVG/SelectedWorks.svg" alt="Selected Works" class="works-svg-title-img" />
-              <div class="works-title-grad" aria-hidden="true"></div>
-              <div class="works-title-beam" aria-hidden="true"></div>
-              <div class="works-title-sparkles" aria-hidden="true"></div>
-            </div>
+      <!-- Cards that open the works panel -->
+      <div class="acc" id="acc">
+        <div class="t bg1" tabindex="0" role="button" aria-haspopup="dialog" data-open="luminang"
+          aria-label="Open Luminang works">
+          <img src="assets/images/luminang-website-hero.png"
+            alt="Luminang title screen: a lit coastal village below a volcano at night" loading="lazy" decoding="async"
+            data-fallback="hide">
+          <span class="num">01</span>
+          <span class="tag">▶ trailer inside</span>
+          <div class="c">
+            <h3>Luminang</h3>
+            <p>Capstone game · my 3D + Unity part</p>
+            <span class="vw">View works ↗</span>
           </div>
         </div>
 
-        <!-- 5 ARCH SVG FRAMES SIDE BY SIDE -->
-        <div class="gallery-frames-row" id="gallery-container">
-
-          <!-- Frame 1: Cat -->
-          <article class="works-frame-col works-col-cat" data-works-card data-frame="cat" tabindex="0" role="button"
-            aria-label="Celestial Cat Artwork">
-            <img src="assets/SVG/CatFrame.svg" alt="Celestial Cat" class="works-frame-svg" draggable="false" />
-            <div class="works-overlay" aria-hidden="true">
-              <div class="works-overlay-inner">
-                <h3 class="works-overlay-title">Celestial Cat</h3>
-                <p class="works-overlay-sub">DIGITAL ILLUSTRATION • 2025 – 2026</p>
-
-                <span class="works-overlay-hint">✦ Click to view</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Frame 2: Luminang -->
-          <article class="works-frame-col works-col-luminang" data-works-card data-frame="luminang" tabindex="0"
-            role="button" aria-label="Luminang Mobile Game Artwork">
-            <img src="assets/SVG/LuminangFrame.svg" alt="Luminang: Language Learning Mobile Game"
-              class="works-frame-svg" draggable="false" />
-            <div class="works-overlay" aria-hidden="true">
-              <div class="works-overlay-inner">
-                <h3 class="works-overlay-title">Luminang: Language Learning Mobile Game</h3>
-                <p class="works-overlay-sub">CAPSTONE PROJECT • 2025 – 2026</p>
-                <a class="works-visit-btn" href="https://luminang.com" target="_blank" rel="noopener noreferrer">Visit
-                  Luminang.com<svg class="arrow-ico" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M7 17 17 7M8 7h9v9" />
-                  </svg></a>
-                <span class="works-overlay-hint">✦ Click to view</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Frame 3: Video -->
-          <!-- Hidden SVG clipPath: exact arch from MiddleVideoFrameOverlay.svg (objectBoundingBox) -->
-          <svg width="0" height="0" style="position:absolute;overflow:hidden;pointer-events:none;" aria-hidden="true">
-            <defs>
-              <clipPath id="archVideoClip" clipPathUnits="objectBoundingBox">
-                <path
-                  d="M 0.40909 0.05298 C 0.45431 0.04270 0.50603 0.03596 0.55663 0.03596 C 0.60725 0.03596 0.65596 0.04174 0.70084 0.05201 C 0.70180 0.05233 0.70275 0.05233 0.70371 0.05265 C 0.87226 0.09375 0.99642 0.20229 0.99880 0.33390 L 0.99880 0.97667 L 0.11400 0.97667 L 0.11400 0.33438 C 0.11638 0.20164 0.23862 0.09311 0.40909 0.05298 Z" />
-              </clipPath>
-            </defs>
+        <div class="t bg2" tabindex="0" role="button" aria-haspopup="dialog" data-open="storyboard"
+          aria-label="Open storyboard works">
+          <svg viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <g fill="none" stroke="#14092e" stroke-width="5">
+              <rect x="25" y="40" width="150" height="85" rx="4" />
+              <rect x="25" y="145" width="70" height="60" />
+              <rect x="105" y="145" width="70" height="60" />
+              <rect x="25" y="225" width="150" height="45" />
+            </g>
           </svg>
-          <article class="works-frame-col works-col-video" data-works-card data-frame="video" tabindex="0" role="button"
-            aria-label="Procreate Video Artwork">
-            <div class="video-frame-inner">
-              <video class="arch-video-bg" autoplay muted loop playsinline preload="auto">
-                <source src="assets/videos/Procreate-4Page.mp4" type="video/mp4" />
-              </video>
-              <img src="assets/SVG/MiddleVideoFrameOverlay.svg" alt="Procreate Art Process" class="works-frame-svg"
-                draggable="false" />
-            </div>
-            <div class="works-overlay" aria-hidden="true">
-              <div class="works-overlay-inner">
-                <h3 class="works-overlay-title">Simple Animation</h3>
-                <p class="works-overlay-sub">4 Pages Procreate Animation</p>
-
-                <span class="works-overlay-hint">✦ Click to view</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Frame 4: Full Body -->
-          <article class="works-frame-col works-col-fullbody" data-works-card data-frame="fullbody" tabindex="0"
-            role="button" aria-label="Personal Logo Artwork">
-            <img src="assets/SVG/LogoFrame.svg" alt="Personal Logo" class="works-frame-svg" draggable="false" />
-            <img src="assets/SVG/LineFrameDesign.svg" alt="" aria-hidden="true" class="works-frame-svg works-lines"
-              draggable="false" />
-            <div class="works-overlay" aria-hidden="true">
-              <div class="works-overlay-inner">
-                <h3 class="works-overlay-title">Personal Logo</h3>
-                <p class="works-overlay-sub">AI Modified Design*</p>
-
-                <span class="works-overlay-hint">✦ Click to view</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Frame 5: Purple Girl -->
-          <article class="works-frame-col works-col-purplegirl" data-works-card data-frame="purplegirl" tabindex="0"
-            role="button" aria-label="Character Portrait Artwork">
-            <img src="assets/SVG/PurpleGirlFrame.svg" alt="Character Portrait" class="works-frame-svg"
-              draggable="false" />
-            <div class="works-overlay" aria-hidden="true">
-              <div class="works-overlay-inner">
-                <h3 class="works-overlay-title">Character Portrait</h3>
-                <p class="works-overlay-sub">ILLUSTRATION • 2025 – 2026</p>
-
-                <span class="works-overlay-hint">✦ Click to view</span>
-              </div>
-            </div>
-          </article>
-
-        </div>
-
-        <!-- EXPLORE FULL GALLERY (COMING SOON) -->
-        <div class="works-action-row">
-          <div class="coming-soon-btn-wrapper">
-            <button class="btn-celestial btn-works-explore btn-coming-soon" data-coming-soon
-              aria-label="Explore Full Gallery - Coming Soon">
-              <span class="btn-sparkle">✦</span>
-              <span>Explore Full Gallery<svg class="arrow-ico" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 17 17 7M8 7h9v9" />
-                </svg></span>
-            </button>
-            <span class="coming-soon-bubble" role="tooltip">✦ Coming Soon</span>
+          <img id="sbCover" alt="First page of the Luminang storyboard">
+          <span class="num">02</span>
+          <span class="tag">51 pages</span>
+          <div class="c">
+            <h3>Storyboard</h3>
+            <p>Flip through it like a book</p>
+            <span class="vw">View works ↗</span>
           </div>
         </div>
 
+        <div class="t bg4" tabindex="0" role="button" aria-haspopup="dialog" data-open="illustrations"
+          aria-label="Open illustrations">
+          <img src="assets/images/Illustrations/Untitled_Artwork%20(5).png"
+            alt="A cosmic black cat reaching for a glowing star" loading="lazy" decoding="async" data-fallback="hide">
+          <span class="num">03</span>
+          <span class="tag">digital art</span>
+          <div class="c">
+            <h3>Illustrations</h3>
+            <p>A wall of polaroids</p>
+            <span class="vw">View works ↗</span>
+          </div>
+        </div>
       </div>
-    </section>
 
-    <!-- ========================================================
-         CONTACT SECTION: SIMPLE, NORMAL & PROFESSIONAL
-         ======================================================== -->
-    <section id="contact" class="section contact-section">
-      <div class="section-container">
+      <!-- Count-up numbers -->
+      <div class="stats" id="stats">
+        <div><b data-to="51">0</b><span>storyboard pages</span></div>
+        <div><b data-to="9">0</b><span>digital illustrations</span></div>
+        <div><b data-to="1">0</b><span>capstone game</span></div>
+        <div><b data-to="99">0</b><span>cups of coffee (approx.)</span></div>
+      </div>
 
-        <div class="section-header contact-header" data-reveal>
-          <p class="contact-eyebrow">Don't be a stranger</p>
-          <h2 class="contact-big-title"><span class="contact-title-text">GET IN TOUCH</span></h2>
-          <svg class="contact-swash-svg" viewBox="0 0 920 380" aria-hidden="true">
-            <defs>
-              <linearGradient id="contactSwashGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="920" y2="0"
-                spreadMethod="reflect">
-                <stop offset="0%" stop-color="#3D2968" />
-                <stop offset="20%" stop-color="#8E63DB" />
-                <stop offset="38%" stop-color="#D4B8FF" />
-                <stop offset="50%" stop-color="#FFFFFF" />
-                <stop offset="62%" stop-color="#D4B8FF" />
-                <stop offset="80%" stop-color="#8E63DB" />
-                <stop offset="100%" stop-color="#3D2968" />
-                <animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="1840 0" dur="5s"
-                  repeatCount="indefinite" />
-              </linearGradient>
-            </defs>
-            <path d="M 2 378 C 160 215, 430 95, 918 8" fill="none" stroke="url(#contactSwashGrad)" stroke-width="1.6"
-              stroke-linecap="round" />
-            <path d="M 4 379 C 200 220, 520 110, 918 44" fill="none" stroke="url(#contactSwashGrad)" stroke-width="1.1"
-              stroke-linecap="round" />
-            <path class="swash-star" d="M 884 4 L 889 18 L 903 24 L 889 30 L 884 44 L 879 30 L 865 24 L 879 18 Z"
-              fill="url(#contactSwashGrad)" />
-          </svg>
+      <div class="walkway walkway-works" aria-hidden="true">
+        <span class="walker pet"></span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================================
+       Hobby
+       ========================================================================== -->
+  <div class="sc sc-hobby" aria-hidden="true"></div>
+  <section class="hb" id="hobby">
+    <span class="deco deco-hb-cup bobby" data-k="cup"></span>
+
+    <div class="w">
+      <h2>Drawing,<br>for fun</h2>
+      <p class="lede">
+        Illustration is my hobby and where most of my ideas start. Digital work, drawn in Procreate and Krita.
+      </p>
+
+      <div class="stage">
+
+        <!-- Illustration previews -->
+        <div class="collage">
+          <button type="button" class="art" data-open="illustrations">
+            <img src="assets/images/Illustrations/Untitled_Artwork%20(5).png"
+              alt="A cosmic black cat reaching for a glowing star" loading="lazy">
+            <span>Celestial Cat</span>
+          </button>
+          <button type="button" class="art" data-open="illustrations">
+            <img src="assets/images/Illustrations/bunnygirl.png"
+              alt="A girl with bunny ears and a pink skirt holding a slice of cake" loading="lazy">
+            <span>Cake break</span>
+          </button>
+          <button type="button" class="art" data-open="illustrations">
+            <img src="assets/images/Illustrations/PurpleGirl.png" alt="Close-up portrait with glowing violet eyes"
+              loading="lazy">
+            <span>Violet portrait</span>
+          </button>
         </div>
 
-        <div class="contact-grid">
-          <!-- Left: hand-drawn form card -->
-          <div class="contact-card contact-outline-card" data-reveal>
-            <svg class="contact-card-border" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              <defs>
-                <linearGradient id="contactCardGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="100" y2="0"
-                  spreadMethod="reflect">
-                  <stop offset="0%" stop-color="#3D2968" />
-                  <stop offset="20%" stop-color="#8E63DB" />
-                  <stop offset="38%" stop-color="#D4B8FF" />
-                  <stop offset="50%" stop-color="#FFFFFF" />
-                  <stop offset="62%" stop-color="#D4B8FF" />
-                  <stop offset="80%" stop-color="#8E63DB" />
-                  <stop offset="100%" stop-color="#3D2968" />
-                  <animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="200 0" dur="5s"
-                    repeatCount="indefinite" />
-                </linearGradient>
-              </defs>
-              <g fill="none" stroke="url(#contactCardGrad)" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" vector-effect="non-scaling-stroke">
-                <path vector-effect="non-scaling-stroke" d="M 0.6 2.4 C 8 2.3, 22 2.1, 32 2.0" />
-                <path vector-effect="non-scaling-stroke" d="M 68 1.6 C 80 1.3, 92 1.0, 99.4 0.8" />
-                <path vector-effect="non-scaling-stroke" d="M 99.4 0.8 C 99.2 30, 98.9 70, 98.7 99.2" />
-                <path vector-effect="non-scaling-stroke" d="M 98.7 99.2 C 85 99.0, 70 98.7, 59 98.6" />
-                <path vector-effect="non-scaling-stroke" d="M 41 99.1 C 28 99.0, 12 98.5, 0.2 98.0" />
-                <path vector-effect="non-scaling-stroke" d="M 0.2 98.0 C 0.3 70, 0.5 30, 0.6 2.4" />
-              </g>
-            </svg>
-            <svg class="contact-card-spark" viewBox="0 0 64 64" aria-hidden="true">
-              <path d="M32 2 C33 22 38 29 62 32 C38 35 33 42 32 62 C31 42 26 35 2 32 C26 29 31 22 32 2Z" fill="none"
-                stroke="url(#contactCardGrad)" stroke-width="1.6" />
-              <path d="M32 2 L32 62 M14 14 L22 22 M50 14 L42 22" stroke="url(#contactCardGrad)" stroke-width="1"
-                stroke-linecap="round" fill="none" />
-            </svg>
+        <!-- Doodle pad -->
+        <div>
+          <span class="note note-lead">your turn, doodle something ↴</span>
+          <div class="pad" id="pad">
+            <span class="deco peek pet" data-k="peek"></span>
+            <div class="pad-bar" role="toolbar" aria-label="Doodle tools">
+              <button type="button" class="sw" data-c="#14092e" aria-label="Ink" aria-pressed="true"></button>
+              <button type="button" class="sw" data-c="#ff6b8b" aria-label="Pink" aria-pressed="false"></button>
+              <button type="button" class="sw" data-c="#6c3cff" aria-label="Violet" aria-pressed="false"></button>
+              <button type="button" class="sw" data-c="#8fd3ff" aria-label="Cyan" aria-pressed="false"></button>
+              <button type="button" class="sw" data-c="#5ef2c4" aria-label="Green" aria-pressed="false"></button>
+              <button type="button" class="sw" data-c="#ffb36b" aria-label="Orange" aria-pressed="false"></button>
+              <span class="grow"></span>
+              <input type="range" id="ddsz" min="2" max="28" value="6" aria-label="Brush size">
+              <button type="button" class="tool" id="dder" aria-pressed="false">Eraser</button>
+              <button type="button" class="tool" id="ddclr">Clear</button>
+            </div>
+            <canvas id="dd" aria-label="Doodle canvas. Draw with your mouse or finger."></canvas>
+            <span class="hint note">draw here</span>
+          </div>
+        </div>
+      </div>
 
-            <h3 class="form-title">Send A Direct Message!</h3>
-            <form id="contact-form" class="ethereal-form">
-              <div class="form-group">
-                <label for="contact-name">Full Name:</label>
-                <input type="text" id="contact-name" name="name" required placeholder="e.g. John Doe">
-              </div>
+      <div class="row">
+        <button type="button" class="b sun" data-open="illustrations">See the full wall ↗</button>
+      </div>
+    </div>
+  </section>
 
-              <div class="form-group">
-                <label for="contact-email">Email:</label>
-                <input type="email" id="contact-email" name="email" required placeholder="john.doe@example.com">
-              </div>
 
-              <div class="form-group">
-                <label for="contact-subject">Type of Inquiry</label>
-                <select id="contact-subject" name="subject" class="form-select" required>
-                  <option value="" disabled selected>Select an option</option>
-                  <option value="ojt">OJT / Internship Opportunity</option>
-                  <option value="freelance">3D / Multimedia Freelance Commission</option>
-                  <option value="other">General Inquiry</option>
-                </select>
-              </div>
+  <!-- ==========================================================================
+       Skills
+       ========================================================================== -->
+  <div class="sc sc-skills" aria-hidden="true"></div>
+  <section class="sk" id="skills">
+    <div class="w">
+      <h2>Toolbox,<br>unpacked</h2>
 
-              <div class="form-group">
-                <label for="contact-message">Message</label>
-                <textarea id="contact-message" name="message" rows="3" required
-                  placeholder="Type message here..."></textarea>
-              </div>
+      <!-- Falling skill pills (physics, filled in by main.js) -->
+      <div id="pit" role="group" aria-label="Skills as draggable pills"></div>
 
-              <!-- Honeypot spam trap (hidden from humans) -->
-              <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off"
-                aria-hidden="true">
+      <div class="gr">
+        <div>
+          <h3>Development &amp; engines</h3>
+          <ul>
+            <li>Java</li>
+            <li>React, Flutter</li>
+            <li>HTML &amp; CSS</li>
+            <li>Unity Engine</li>
+            <li>Git / GitHub</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Database &amp; backend</h3>
+          <ul>
+            <li>MySQL, Oracle</li>
+            <li>Supabase, Firebase</li>
+            <li>Database schema design</li>
+            <li>JSON &amp; REST APIs</li>
+            <li>QA testing</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Creative &amp; AI</h3>
+          <ul>
+            <li>Blender 3D</li>
+            <li>Procreate, Krita</li>
+            <li>Canva, CapCut, Pinterest</li>
+            <li>UI/UX layouts</li>
+            <li>AI tooling (Claude, ChatGPT, Antigravity IDE)</li>
+          </ul>
+        </div>
+      </div>
 
-              <button type="submit" class="btn-celestial submit-btn">
-                <span class="btn-sparkle">✦</span>
-                <span class="submit-label">Send Message</span>
-                <svg class="submit-plane" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
-                  <path d="M21 3 3 10.5l7 3 3 7L21 3Z" />
-                  <path d="M10 13.5 21 3" />
-                </svg>
+      <p class="cert" style="color:rgb(255, 252, 237);">Certifications (Certiport): Java, Database, HTML &amp; CSS.</p>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================================
+       Contact
+       ========================================================================== -->
+  <div class="sc sc-contact" aria-hidden="true"></div>
+  <section class="ci" id="contact">
+    <div class="w">
+      <div class="hi-top">
+        <h2 class="hi" aria-label="Say hi.">
+          <span aria-hidden="true">S</span><span aria-hidden="true">a</span><span aria-hidden="true">y</span>
+          <span aria-hidden="true">h</span><span aria-hidden="true">i</span><span aria-hidden="true">.</span>
+        </h2>
+        <div class="bubble">
+          <span class="deco peek pet" data-k="peek"></span>
+          <p>Open for OJT internships and commissions. I reply fast, usually with a cat picture.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <button class="b" id="cp">Copy my email</button>
+        <a class="b o2" href="mailto:p.ellaiza.rose@gmail.com">Open mail app</a>
+        <a class="b o2" href="https://github.com/ellaiza9017">GitHub</a>
+      </div>
+      <p id="cs" role="status">p.ellaiza.rose@gmail.com</p>
+
+      <div class="cg">
+        <!-- Contact details -->
+        <div>
+          <p class="airmail" aria-hidden="true">Air mail · Par avion · Meow express</p>
+          <ul class="notes" aria-label="Direct info">
+            <li class="nt">
+              <small>Personal email</small>
+              <a href="mailto:p.ellaiza.rose@gmail.com">p.ellaiza.rose@gmail.com</a>
+            </li>
+            <li class="nt">
+              <small>University email</small>
+              <a href="mailto:pesonseb@students.national-u.edu.ph">pesonseb@students.national-u.edu.ph</a>
+            </li>
+            <li class="nt">
+              <small>GitHub profile</small>
+              <a href="https://github.com/ellaiza9017" target="_blank" rel="noopener">github.com/ellaiza9017</a>
+            </li>
+            <li class="nt">
+              <small>Capstone project (Luminang)</small>
+              <a href="https://github.com/ellaiza9017/Luminang" target="_blank"
+                rel="noopener">github.com/ellaiza9017/Luminang</a>
+            </li>
+            <li class="nt me">
+              <small>Indeed</small>
+              <b>Ellaiza Rose Pesons</b>
+              <a href="mailto:p.ellaiza.rose@gmail.com">p.ellaiza.rose@gmail.com</a>
+            </li>
+            <li class="nt li">
+              <small>LinkedIn</small>
+              <b>Ellaiza Rose Pesons</b>
+              <a href="mailto:p.ellaiza.rose@gmail.com">p.ellaiza.rose@gmail.com</a>
+            </li>
+          </ul>
+          <p class="status">Available for OJT internship · Active for commissions</p>
+        </div>
+
+        <!-- Contact form: sends directly to Ellaiza via FormSubmit -->
+        <form id="mf" class="card">
+          <span class="deco peek pet" data-k="peek"></span>
+          <svg class="postmark" viewBox="0 0 120 120" aria-hidden="true">
+            <defs>
+              <path id="pmc" d="M60 60 m-44 0 a44 44 0 1 1 88 0 a44 44 0 1 1 -88 0" />
+            </defs>
+            <circle cx="60" cy="60" r="56" fill="none" stroke="currentColor" stroke-width="3" />
+            <circle cx="60" cy="60" r="30" fill="none" stroke="currentColor" stroke-width="2" /><text font-size="11"
+              font-weight="800" letter-spacing="2" fill="currentColor" font-family="Arial, sans-serif">
+              <textPath href="#pmc">MEOW POST OFFICE · SENT WITH LOVE ·</textPath>
+            </text><text x="60" y="58" text-anchor="middle" font-size="11" font-weight="800" fill="currentColor"
+              font-family="Arial, sans-serif">NOV</text><text x="60" y="72" text-anchor="middle" font-size="12"
+              font-weight="800" fill="currentColor" font-family="Arial, sans-serif">2026</text>
+          </svg><svg class="cancel" viewBox="0 0 160 60" aria-hidden="true">
+            <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+              <path d="M2 8 q10 -8 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" />
+              <path d="M2 22 q10 -8 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" />
+              <path d="M2 36 q10 -8 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" />
+              <path d="M2 50 q10 -8 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" />
+            </g>
+          </svg>
+          <div class="pc-top">
+            <span class="note">write me a postcard</span>
+            <span class="stamp" aria-hidden="true"><span class="deco" data-k="cup"></span></span>
+          </div>
+          <label>Full name
+            <input name="n" required autocomplete="name" placeholder="e.g. John Doe">
+          </label>
+          <label>Email
+            <input name="e" type="email" required autocomplete="email" placeholder="john.doe@example.com">
+          </label>
+          <label>Type of inquiry
+            <select name="t" required>
+              <option value="">Select an option</option>
+              <option>OJT internship</option>
+              <option>Commission</option>
+              <option>Project collaboration</option>
+              <option>Just saying hi</option>
+            </select>
+          </label>
+          <label>Message
+            <textarea name="m" rows="4" required placeholder="Type your message here"></textarea>
+          </label>
+          <!-- Honeypot spam protection -->
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <button class="b" type="submit" id="mfSubmit">Send message</button>
+          <div id="mfStatus" class="mf-status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+
+      <div class="walkway walkway-contact" aria-hidden="true">
+        <span class="walker pet"></span>
+      </div>
+
+      <footer>
+        <span>Ellaiza Rose B. Pesons</span>
+        <span>© 2026</span>
+        <a href="#top">Back to top ↑</a>
+      </footer>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================================
+       Works panel (opens over the page from the Works cards)
+       ========================================================================== -->
+  <div class="panel" id="panel" role="dialog" aria-modal="true" aria-label="Works" aria-hidden="true">
+    <div class="pbar" role="tablist" aria-label="Switch work">
+      <button type="button" role="tab" data-tab="luminang" aria-selected="false">Luminang</button>
+      <button type="button" role="tab" data-tab="storyboard" aria-selected="false">Storyboard</button>
+      <button type="button" role="tab" data-tab="illustrations" aria-selected="false">Illustrations</button>
+    </div>
+    <button type="button" class="pclose" id="pclose" aria-label="Close panel">×</button>
+
+    <!-- Luminang -->
+    <section class="pn pn-lum" data-pn="luminang" aria-labelledby="h-lum">
+      <div class="pw">
+        <span class="deco deco-panel-cup bobby" data-k="cup"></span>
+        <p class="kick">Capstone · 2025 – 2026 · National University – Dasmariñas</p>
+        <h2 class="ptitle" id="h-lum">
+          Luminang<small>Voices of the Regions · a language-learning mobile game</small>
+        </h2>
+
+        <div class="lum-grid">
+          <div>
+            <!-- Trailer (the YouTube iframe loads only when played) -->
+            <div class="tv" id="tv">
+              <img src="assets/images/luminang-website-hero.png"
+                alt="Luminang title screen: a lit coastal village below a volcano at night" data-fallback="hide">
+              <span class="rec">● trailer</span>
+              <button type="button" class="play" id="playv" aria-label="Play the Luminang video"><span></span></button>
+            </div>
+            <div class="shots">
+              <button type="button" data-shot="assets/images/luminang-website-hero.png"
+                data-cap="The Luminang title screen">
+                <img src="assets/images/luminang-website-hero.png" alt="Luminang title screen" loading="lazy"
+                  data-fallback="hide-parent">
+                <span>title screen</span>
               </button>
-
-              <div class="form-notification" id="form-status"></div>
-            </form>
+              <button type="button" data-shot="assets/images/Works/luminang_full.png" data-cap="Luminang, full artwork">
+                <img src="assets/images/Works/luminang_full.png" alt="Luminang full artwork" loading="lazy"
+                  data-fallback="hide-parent">
+                <span>full art</span>
+              </button>
+            </div>
           </div>
 
-          <!-- Right: Direct Info -->
-          <div class="contact-channels" data-reveal>
-            <h3 class="form-title">Direct Info</h3>
-
-            <div class="channel-list">
-              <a href="mailto:p.ellaiza.rose@gmail.com" class="channel-item">
-                <span class="channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="5" width="18" height="14" rx="2" />
-                    <path d="m3.5 6.5 8.5 6.5 8.5-6.5" />
-                  </svg></span>
-                <span class="channel-info">
-                  <span class="label">Personal Email</span>
-                  <span class="val">p.ellaiza.rose@gmail.com</span>
-                </span>
-              </a>
-
-              <a href="mailto:pesonseb@students.national-u.edu.ph" class="channel-item">
-                <span class="channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m2 9 10-5 10 5-10 5L2 9Z" />
-                    <path d="M6 11.5V16c0 1.4 2.7 3 6 3s6-1.6 6-3v-4.5" />
-                  </svg></span>
-                <span class="channel-info">
-                  <span class="label">University Email</span>
-                  <span class="val">pesonseb@students.national-u.edu.ph</span>
-                </span>
-              </a>
-
-              <a href="https://github.com/ellaiza9017" target="_blank" rel="noopener noreferrer" class="channel-item">
-                <span class="channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path
-                      d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                  </svg></span>
-                <span class="channel-info">
-                  <span class="label">GitHub Profile</span>
-                  <span class="val">github.com/ellaiza9017</span>
-                </span>
-              </a>
-
-              <a href="https://github.com/ellaiza9017/Luminang" target="_blank" rel="noopener noreferrer"
-                class="channel-item">
-                <span class="channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path
-                      d="M12 2.5c.7 6 3.5 8.800 9.500 9.500-6 .7-8.800 3.500-9.500 9.500-.7-6-3.500-8.800-9.500-9.500 6-.7 8.800-3.500 9.500-9.500Z" />
-                  </svg></span>
-                <span class="channel-info">
-                  <span class="label">Capstone Project (Luminang)</span>
-                  <span class="val">github.com/ellaiza9017/Luminang</span>
-                </span>
-              </a>
-
-              <div class="channel-item channel-static">
-                <span class="channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="9.5" />
-                    <path d="M12 11v6" />
-                    <circle cx="12" cy="7.5" r="0.6" fill="currentColor" />
-                  </svg></span>
-                <span class="channel-info">
-                  <span class="label">Name</span>
-                  <span class="val">ELLAIZA ROSE B. PESONS</span>
-                </span>
-              </div>
+          <aside class="lum-side">
+            <svg class="crystal" viewBox="0 0 120 140" aria-hidden="true">
+              <polygon points="60,6 20,56 60,56" fill="#d8c8ff" stroke="#14092e" stroke-width="3"
+                stroke-linejoin="round" />
+              <polygon points="60,6 100,56 60,56" fill="#ffffff" stroke="#14092e" stroke-width="3"
+                stroke-linejoin="round" />
+              <polygon points="20,56 60,56 60,134" fill="#8f6bff" stroke="#14092e" stroke-width="3"
+                stroke-linejoin="round" />
+              <polygon points="100,56 60,56 60,134" fill="#6c3cff" stroke="#14092e" stroke-width="3"
+                stroke-linejoin="round" />
+              <use class="spark-a" href="#st" x="86" y="6" width="22" height="22" />
+              <use class="spark-b" href="#st" x="4" y="84" width="16" height="16" />
+            </svg>
+            <p class="lead">
+              A growing silence is erasing the voices of the Philippine archipelago. Amira has to wake each region’s
+              language before it disappears.
+            </p>
+            <p>
+              Following her grandfather’s final message, Amira travels across Cebu, Ilocos and Lanao to recover the
+              Language Crystals, symbols of culture, memory and identity, before the Eclipse of Silence arrives.
+            </p>
+            <div class="chips">
+              <span>Android</span>
+              <span>Low-poly 3D</span>
+              <span>Unity</span>
+              <span>Blender</span>
+              <span>Team of 4</span>
             </div>
+          </aside>
+        </div>
 
-            <div class="status-box">
-              <span class="dot-online"></span>
-              <span>Available for OJT Internship &bull; Active for Commissions</span>
-            </div>
+        <h3 class="sub">My part in it</h3>
+        <p class="rolebanner">3D Artist &amp; Asset Designer · Unity co-developer</p>
+        <div class="roles">
+          <div class="role">
+            <i>1</i>
+            <h4>3D art &amp; assets</h4>
+            <p>Modeled, textured and optimized low-poly environments, characters and props in Blender and Unity for
+              mobile.</p>
+          </div>
+          <div class="role">
+            <i>2</i>
+            <h4>Unity co-development</h4>
+            <p>Helped build minigames, configured interactive objects, touch controls and scene transitions.</p>
+          </div>
+          <div class="role">
+            <i>3</i>
+            <h4>Mobile UI layouts</h4>
+            <p>Set up menus, responsive buttons and feedback animations that hold up across Android screen sizes.</p>
+          </div>
+          <div class="role">
+            <i>4</i>
+            <h4>Content &amp; data</h4>
+            <p>Structured vocabulary, dialogue and quiz questions in JSON and wired them into the game.</p>
+          </div>
+          <div class="role">
+            <i>5</i>
+            <h4>QA testing</h4>
+            <p>Tested by hand on Android devices to catch visual glitches, UI misalignment and performance bugs.</p>
           </div>
         </div>
 
+        <h3 class="sub">The team</h3>
+        <div class="team">
+          <div><b>Jerome Benitez</b><span>Software developer</span></div>
+          <div><b>Irah Mae Faner</b><span>Software developer</span></div>
+          <div class="me"><b>Ellaiza Rose Pesons</b><span>3D artist &amp; asset designer</span></div>
+          <div><b>Kyros Emmanuel Quirimit</b><span>UI/UX designer</span></div>
+        </div>
+
+        <div class="prow">
+          <a class="b sun" href="https://luminang.com" target="_blank" rel="noopener">Visit luminang.com ↗</a>
+          <a class="b" href="https://github.com/ellaiza9017/Luminang" target="_blank" rel="noopener">GitHub repo ↗</a>
+          <a class="b ghost" href="https://youtu.be/hxVQVUPZbmA" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+        </div>
       </div>
     </section>
 
-  </main>
+    <!-- Storyboard -->
+    <section class="pn pn-sb" data-pn="storyboard" aria-labelledby="h-sb">
+      <div class="pw">
+        <span class="deco deco-panel-cup bobby" data-k="cup"></span>
+        <p class="kick">Planning layer · Luminang</p>
+        <h2 class="ptitle" id="h-sb">Storyboard<small>51 pages, panel by panel</small></h2>
+        <p class="sb-note">
+          The scene-by-scene plan behind the game. Flip with the arrows, drag the slider, or hit play and watch it run
+          like an animatic.
+        </p>
 
-  <!-- ========================================================
-       LIGHTBOX MODAL FOR ARTIFACT / LOGO INSPECTION
-       ======================================================== -->
-  <div class="lightbox-modal" id="lightbox-modal" aria-hidden="true">
-    <div class="lightbox-backdrop" id="lightbox-close-overlay"></div>
-    <div class="lightbox-dialog glass-panel" role="dialog" aria-modal="true">
-      <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close modal">✕</button>
-      <div class="lightbox-layout">
-        <div class="lightbox-media-side">
-          <img src="" alt="Artifact preview" id="lightbox-img" class="lightbox-image">
-        </div>
-        <div class="lightbox-details-side">
-          <span class="modal-category" id="lightbox-category">STREAM KIT</span>
-          <h3 class="modal-title" id="lightbox-title">Artifact Title</h3>
-          <p class="modal-desc" id="lightbox-desc">Detailed breakdown of the artwork and design decisions.</p>
-
-          <div class="modal-palette">
-            <h4>COLOR PROFILE</h4>
-            <div class="modal-swatches" id="lightbox-swatches">
-              <!-- Dynamically populated -->
+        <div class="book">
+          <i class="tape a"></i><i class="tape b2"></i>
+          <div class="page" id="sbp" aria-live="polite"></div>
+          <div class="ctl">
+            <button type="button" class="rb" id="sbPrev" aria-label="Previous page">←</button>
+            <div class="mid">
+              <input type="range" id="sbr" min="1" max="51" value="1" aria-label="Page">
+              <span class="cnt" id="sbc" role="status">Page 1 of 51</span>
             </div>
+            <button type="button" class="rb" id="sbNext" aria-label="Next page">→</button>
+            <button type="button" class="pill" id="sbPlay" aria-pressed="false">▶ Play animatic</button>
+            <button type="button" class="pill" id="sbSheet" aria-pressed="false">Contact sheet</button>
           </div>
-
-          <div class="modal-actions" id="lightbox-actions-container">
-            <!-- External link buttons dynamically injected -->
-          </div>
+          <div class="sheet" id="sheet"></div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- ========================================================
-       FOOTER
-       ======================================================== -->
-  <footer class="site-footer">
-    <div class="footer-thank-you">
-      <span class="footer-thank-text">THANK YOU FOR VISITING</span>
-    </div>
-    <div class="footer-rule"></div>
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <svg class="footer-star" viewBox="0 0 24 48" aria-hidden="true">
-          <path
-            d="M12 1 C12.7 15 14.2 21.5 23 24 C14.2 26.5 12.7 33 12 47 C11.3 33 9.800 26.500 1 24 C9.800 21.500 11.300 15 12 1Z" />
-        </svg>
-        <span>ELLAIZA ROSE B. PESONS</span>
+    <!-- Illustrations -->
+    <section class="pn pn-il" data-pn="illustrations" aria-labelledby="h-il">
+      <div class="pw">
+        <span class="deco deco-panel-peek peek pet" data-k="peek"></span>
+        <p class="kick">Procreate · Krita</p>
+        <h2 class="ptitle" id="h-il">Illustrations<small>Drawn for fun, pinned to the wall</small></h2>
+        <p class="il-note">
+          Cats, night skies and soft purple light show up in nearly everything. Click any polaroid to zoom in.
+        </p>
+        <div class="wall" id="wall"></div>
       </div>
-      <p class="footer-copy footer-note">This website is still under development</p>
-      <p class="footer-copy footer-rights"><span class="footer-c">&copy;</span> 2026 All Rights Reserved</p>
-      <a href="#home" class="footer-back-to-top">
-        <span>Back to top</span>
-        <span class="up-arr"><svg class="arrow-ico" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 19V5M5 12l7-7 7 7" />
-          </svg></span>
-      </a>
-    </div>
-  </footer>
+    </section>
 
-  <script src="main.js"></script>
-
-  <!-- ============================================================
-       VIDEO LIGHTBOX MODAL (for Procreate video frame)
-       ============================================================ -->
-  <div class="video-lightbox-modal" id="video-lightbox-modal" aria-hidden="true">
-    <div class="lightbox-backdrop" id="video-lb-close-overlay"></div>
-    <div class="video-lightbox-dialog glass-panel" role="dialog" aria-modal="true">
-      <button class="lightbox-close" id="video-lb-close-btn" aria-label="Close video">&times;</button>
-      <video id="modal-video" class="modal-video-player" controls autoplay loop muted playsinline>
-        <source src="assets/videos/Procreate-4Page.mp4" type="video/mp4" />
-      </video>
+    <!-- Image viewer shared by all panels -->
+    <div class="lb" id="lb" aria-label="Image viewer">
+      <button type="button" class="lbx" id="lbx" aria-label="Close image">×</button>
+      <button type="button" class="lbn p" id="lbp" aria-label="Previous image">←</button>
+      <img id="lbi" alt="">
+      <p id="lbc"></p>
+      <button type="button" class="lbn n" id="lbn" aria-label="Next image">→</button>
     </div>
   </div>
 
-  <!-- ============================================================
-       COMING SOON TOAST NOTIFICATION
-       ============================================================ -->
-  <div class="coming-soon-toast" id="coming-soon-toast" aria-live="polite">
-    <span class="toast-sparkle">✦</span>
-    <span class="toast-text">Coming Soon</span>
-  </div>
-
-  <!-- ============================================================
-       WORKS CARD LIGHTBOX EXTENSION
-       (SVG-frame lightbox: show SVG full-screen, Luminang variant adds visit btn)
-       ============================================================ -->
-  <div class="svgframe-lightbox-modal" id="svgframe-lb-modal" aria-hidden="true">
-    <div class="lightbox-backdrop" id="svgframe-lb-backdrop"></div>
-    <div class="svgframe-lb-dialog glass-panel" role="dialog" aria-modal="true">
-      <button class="lightbox-close" id="svgframe-lb-close" aria-label="Close">&times;</button>
-      <img id="svgframe-lb-img" src="" alt="" class="svgframe-lb-img" />
-      <div id="svgframe-lb-actions" class="svgframe-lb-actions"></div>
-    </div>
-  </div>
 </body>
 
 </html>
