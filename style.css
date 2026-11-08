@@ -2131,8 +2131,15 @@ footer {
 }
 
 @keyframes mfStatusPop {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mf-status.sending {
@@ -4374,4 +4381,564 @@ nav.open .bars::after {
   touch-action: none;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
+}
+
+/* ==========================================================================
+   Music player: vinyl button + pop-up player
+   ========================================================================== */
+.mp {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right, 0px));
+  bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  z-index: 40;
+  --lab: var(--pk);
+}
+
+.mp[data-list="all"] {
+  --lab: var(--v);
+}
+
+.mp[data-list="jazz"] {
+  --lab: var(--sun);
+}
+
+/* the record itself (used small on the button and bigger in the player) */
+.vinyl {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, var(--pp) 0 4%, transparent 4.5%),
+    radial-gradient(circle, var(--lab) 0 27%, var(--ink) 28% 31%, transparent 31.5%),
+    conic-gradient(from 30deg, rgba(244, 239, 255, 0) 0 12%, rgba(244, 239, 255, .22) 17%, rgba(244, 239, 255, 0) 22% 62%, rgba(244, 239, 255, .22) 67%, rgba(244, 239, 255, 0) 72%),
+    repeating-radial-gradient(circle, #1d0f3f 0 2px, #2c1a59 2px 3px);
+  border: 3px solid var(--ink);
+  box-sizing: border-box;
+}
+
+.mp.playing .vinyl {
+  animation: mpspin 4s linear infinite;
+}
+
+@keyframes mpspin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mp-vinyl {
+  position: relative;
+  display: block;
+  width: 68px;
+  height: 68px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition: transform .3s cubic-bezier(.3, 1.6, .5, 1);
+}
+
+.mp-vinyl:hover {
+  transform: scale(1.08) rotate(-6deg);
+}
+
+.mp-vinyl:focus-visible,
+.mp button:focus-visible,
+.mp summary:focus-visible {
+  outline: 3px solid var(--v);
+  outline-offset: 3px;
+}
+
+/* little notes floating off the record while it plays */
+.mp-vinyl::before,
+.mp-vinyl::after {
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  font: 800 1.3rem/1 var(--f);
+  color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mp-vinyl::before {
+  content: "♪";
+}
+
+.mp-vinyl::after {
+  content: "♫";
+  right: 10px;
+}
+
+.mp.playing .mp-vinyl::before {
+  animation: mpnote 2.6s ease-out infinite;
+}
+
+.mp.playing .mp-vinyl::after {
+  animation: mpnote 2.6s ease-out 1.3s infinite;
+}
+
+@keyframes mpnote {
+  0% {
+    transform: translate(0, 6px) rotate(0);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(14px, -34px) rotate(18deg);
+    opacity: 0;
+  }
+}
+
+.mp-hint {
+  position: absolute;
+  right: 80px;
+  bottom: 14px;
+  margin: 0;
+  padding: .2rem .8rem;
+  white-space: nowrap;
+  font: 600 1.3rem/1.1 var(--h);
+  color: var(--ink);
+  background: var(--sun);
+  border: 3px solid var(--ink);
+  border-radius: 99px;
+  box-shadow: 3px 3px 0 var(--ink);
+  animation: mphint 1.6s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.mp-hint[hidden] {
+  display: none;
+}
+
+@keyframes mphint {
+  to {
+    transform: translateX(-5px) rotate(1.5deg);
+  }
+}
+
+/* ---- the pop-up ---- */
+.mp-panel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 14px);
+  width: min(360px, calc(100vw - 32px));
+  max-height: min(78vh, 600px);
+  overflow: auto;
+  padding: 1rem 1.1rem 1.1rem;
+  background: var(--pp);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: 24px;
+  box-shadow: 7px 7px 0 var(--lab), 7px 7px 0 3px var(--ink);
+  transform-origin: calc(100% - 34px) 100%;
+}
+
+.mp-panel[hidden] {
+  display: none;
+}
+
+.mp-panel.in {
+  animation: mppop .45s cubic-bezier(.3, 1.4, .5, 1) both;
+}
+
+.mp-panel.out {
+  animation: mpout .17s ease-in both;
+}
+
+@keyframes mppop {
+  0% {
+    transform: scale(.2) rotate(8deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes mpout {
+  to {
+    transform: scale(.3) rotate(6deg);
+    opacity: 0;
+  }
+}
+
+.mp-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6rem;
+}
+
+.mp-tabs {
+  display: flex;
+  gap: .4rem;
+}
+
+.mp-tabs button {
+  padding: .3rem 1rem;
+  font: 800 .95rem/1 var(--f);
+  color: var(--ink);
+  background: var(--pp);
+  border: 3px solid var(--ink);
+  border-radius: 99px;
+  cursor: pointer;
+}
+
+.mp-tabs button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--sun);
+}
+
+.mp-x {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  padding: 0 0 3px;
+  font: 800 1.5rem/1 var(--f);
+  color: var(--ink);
+  background: var(--pp);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.mp-x:hover {
+  background: var(--pk);
+}
+
+.mp-now {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  margin-top: .9rem;
+}
+
+.mp-disc {
+  flex: 0 0 76px;
+  width: 76px;
+  height: 76px;
+}
+
+.mp-meta {
+  min-width: 0;
+}
+
+.mp-title {
+  margin: 0;
+  font: 800 1.2rem/1.15 var(--f);
+  letter-spacing: -.02em;
+}
+
+.mp-by {
+  margin: .25rem 0 0;
+  font: 600 1.35rem/1 var(--h);
+  color: var(--v);
+}
+
+.mp-bar {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  margin-top: .9rem;
+  font: 700 .75rem/1 var(--f);
+}
+
+.mp-seek,
+.mp-vol {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  margin: 0;
+  border: 2px solid var(--ink);
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--lab) var(--p, 0%), var(--pp) var(--p, 0%));
+  cursor: pointer;
+}
+
+.mp-seek {
+  flex: 1;
+  min-width: 0;
+}
+
+.mp-seek::-webkit-slider-thumb,
+.mp-vol::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--ink);
+  border: 3px solid var(--pp);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--ink);
+}
+
+.mp-seek::-moz-range-thumb,
+.mp-vol::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--ink);
+  border: 3px solid var(--pp);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--ink);
+}
+
+.mp-ctl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .4rem;
+  margin-top: .8rem;
+}
+
+.mp-ctl button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  color: var(--ink);
+  background: var(--pp);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform .2s cubic-bezier(.3, 1.6, .5, 1), background .15s;
+}
+
+.mp-ctl button:hover {
+  transform: scale(1.1);
+}
+
+.mp-ctl svg {
+  width: 20px;
+  height: 20px;
+}
+
+.mp-ctl .mp-play {
+  width: 52px;
+  height: 52px;
+  background: var(--lab);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.mp-ctl .mp-play svg {
+  width: 24px;
+  height: 24px;
+}
+
+.mp-ctl .mp-rep[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--sun);
+}
+
+.mp-volw {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+}
+
+.mp-vol {
+  width: 64px;
+}
+
+.mp-volw .mp-mute {
+  width: 34px;
+  height: 34px;
+  border-width: 2.5px;
+}
+
+.mp-novol .mp-vol {
+  display: none;
+}
+
+.mp-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: .35rem;
+}
+
+.mp-tr {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .4rem .7rem;
+  text-align: left;
+  font: 700 .92rem/1.15 var(--f);
+  color: var(--ink);
+  background: transparent;
+  border: 2.5px solid transparent;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+.mp-tr:hover {
+  border-color: var(--ink);
+}
+
+.mp-tr.on {
+  background: var(--lab);
+  border-color: var(--ink);
+}
+
+.mp-n {
+  flex: 0 0 1.1rem;
+  opacity: .55;
+  font-size: .8rem;
+}
+
+.mp-tt {
+  flex: 1;
+  min-width: 0;
+}
+
+.mp-tt small {
+  display: block;
+  margin-top: .1rem;
+  font-weight: 600;
+  font-size: .75rem;
+  opacity: .7;
+}
+
+.mp-eq {
+  display: none;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+
+.mp.playing .mp-tr.on .mp-eq {
+  display: flex;
+}
+
+.mp-eq i {
+  width: 3px;
+  height: 100%;
+  background: var(--ink);
+  border-radius: 2px;
+  transform-origin: bottom;
+  animation: mpeq .8s ease-in-out infinite alternate;
+}
+
+.mp-eq i:nth-child(2) {
+  animation-delay: -.3s;
+}
+
+.mp-eq i:nth-child(3) {
+  animation-delay: -.6s;
+}
+
+@keyframes mpeq {
+  from {
+    transform: scaleY(.25);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.mp-credits {
+  margin-top: .9rem;
+  padding-top: .7rem;
+  border-top: 2.5px dashed rgba(20, 9, 46, .35);
+  font-size: .8rem;
+}
+
+.mp-credits summary {
+  cursor: pointer;
+  font: 800 .85rem/1 var(--f);
+}
+
+.mp-credits ul {
+  list-style: none;
+  margin: .6rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: .5rem;
+}
+
+.mp-credits li b {
+  display: block;
+  font-size: .8rem;
+}
+
+.mp-credits li span {
+  line-height: 1.35;
+}
+
+.mp-credits li.mp-ch {
+  font: 600 1.25rem/1 var(--h);
+  color: var(--v);
+  margin-top: .3rem;
+}
+
+.mp-credits a {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+  .mp-vinyl {
+    width: 56px;
+    height: 56px;
+  }
+
+  .mp-hint {
+    right: 66px;
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .mp-vol {
+    width: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .mp.playing .vinyl,
+  .mp.playing .mp-vinyl::before,
+  .mp.playing .mp-vinyl::after,
+  .mp-hint,
+  .mp-panel.in,
+  .mp-panel.out,
+  .mp-eq i {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   Hidden scrollbars: the page (and any scrollable box) still scrolls,
+   there is just no visible bar. Delete this block to bring them back.
+   ========================================================================== */
+html,
+* {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* old Edge / IE */
+}
+
+html::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, new Edge */
+  width: 0;
+  height: 0;
 }
