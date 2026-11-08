@@ -4363,3 +4363,15 @@ nav.open .bars::after {
 .pit-static .skcard {
   max-height: none;
 }
+
+/* touch: pills can be dragged, the rest of the pit still scrolls the page */
+#pit {
+  touch-action: pan-y;
+}
+
+#pit .p,
+#pit .sp {
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+}

@@ -269,7 +269,7 @@
   const PAW = '<svg viewBox="-22 -22 44 44" aria-hidden="true"><g fill="currentColor"><ellipse cx="0" cy="8" rx="13" ry="10"/><ellipse cx="-15" cy="-6" rx="5" ry="7"/><ellipse cx="-5" cy="-14" rx="5" ry="7"/><ellipse cx="6" cy="-14" rx="5" ry="7"/><ellipse cx="16" cy="-6" rx="5" ry="7"/></g></svg>';
   const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
   const isDark = c => c === '#14092e' || c === '#6c3cff';
-  const dragMode = canHover && innerWidth > 800;
+  const dragMode = true; /* mouse AND touch */
 
   /* the paw-print drop spot */
   const nook = document.createElement('div');
@@ -277,7 +277,7 @@
   nook.setAttribute('aria-hidden', 'true');
   nook.innerHTML = '<span class="nook-cat"><svg viewBox="0 0 40 40" width="56" height="56"><use href="#ic-cat"/></svg></span>'
     + '<span class="nook-paw">' + PAW + '</span>'
-    + '<span class="nook-t nook-idle">' + (dragMode ? 'drop a skill<br>here' : 'tap a skill') + '</span>'
+    + '<span class="nook-t nook-idle">' + 'drop a skill<br>here' + '</span>'
     + '<span class="nook-t nook-hot">ooh, that one!</span>';
   pit.appendChild(nook);
 
@@ -374,7 +374,9 @@
   /* click / tap (ignores real drags) and keyboard */
   let downAt = null;
   pit.addEventListener('pointerdown', ev => { downAt = { x: ev.clientX, y: ev.clientY }; });
+  let touchOpenAt = 0;
   pit.addEventListener('click', ev => {
+    if (Date.now() - touchOpenAt < 700) { return; }
     const el = ev.target.closest('.p, .sp');
     if (!el || !pit.contains(el)) { return; }
     if (downAt && Math.hypot(ev.clientX - downAt.x, ev.clientY - downAt.y) > 6) { return; }
@@ -464,6 +466,37 @@
       const m = Mouse.create(pit);
       m.element.removeEventListener('mousewheel', m.mousewheel);
       m.element.removeEventListener('DOMMouseScroll', m.mousewheel);
+      /* Matter grabs EVERY touch (which would trap page scrolling and block taps).
+         Take its touch handlers over: only touches that start on a pill drag it. */
+      m.element.removeEventListener('touchstart', m.mousedown);
+      m.element.removeEventListener('touchmove', m.mousemove);
+      m.element.removeEventListener('touchend', m.mouseup);
+      let tPill = null;
+      let tStart = null;
+      pit.addEventListener('touchstart', ev => {
+        const el = ev.target.closest && ev.target.closest('.p, .sp');
+        if (!el || ev.touches.length > 1) { return; }
+        tPill = el;
+        tStart = { x: ev.touches[0].clientX, y: ev.touches[0].clientY };
+        m.mousedown(ev);
+      }, { passive: false });
+      pit.addEventListener('touchmove', ev => {
+        if (tPill) { m.mousemove(ev); }
+      }, { passive: false });
+      const tEnd = ev => {
+        if (!tPill) { return; }
+        const t = ev.changedTouches[0];
+        const moved = tStart && t ? Math.hypot(t.clientX - tStart.x, t.clientY - tStart.y) : 99;
+        const el = tPill;
+        tPill = null;
+        m.mouseup(ev);
+        if (ev.type === 'touchend' && moved < 8) { /* a tap, not a drag */
+          touchOpenAt = Date.now();
+          openFor(el, false);
+        }
+      };
+      pit.addEventListener('touchend', tEnd, { passive: false });
+      pit.addEventListener('touchcancel', tEnd, { passive: false });
       const mc = MouseConstraint.create(en, {
         mouse: m, constraint: {
           stiffness: .2, render: { visible: false }
@@ -827,7 +860,6 @@
       const honey = (d.get('_honey') || '').toString().trim();
 
       if (honey) {
-        // Spam bot triggered honeypot
         return;
       }
 
