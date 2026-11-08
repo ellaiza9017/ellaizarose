@@ -894,7 +894,7 @@
 
         const result = await response.json().catch(() => ({}));
 
-        if (response.ok || result.success === 'true' || result.success === true) {
+        if (result.success === 'true' || result.success === true) {
           formEl.reset();
           if (submitBtn) {
             submitBtn.textContent = 'Message sent! ✨';
@@ -909,6 +909,18 @@
               submitBtn.textContent = origBtnText;
             }
           }, 4500);
+        } else if (result.message && /needs Activation/i.test(result.message)) {
+          formEl.reset();
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = origBtnText;
+          }
+          if (statusBox) {
+            statusBox.className = 'mf-status success';
+            statusBox.innerHTML = `📬 <b>Almost activated!</b> FormSubmit sent an activation link to <b>p.ellaiza.rose@gmail.com</b>. Please click <b>"Activate Form"</b> in your email to start receiving messages!`;
+          }
+        } else if (result.message && /web server/i.test(result.message)) {
+          throw new Error('Form submissions work when deployed on a web server (like Vercel), not via local file:// browsing.');
         } else {
           throw new Error(result.message || 'Submission failed');
         }
